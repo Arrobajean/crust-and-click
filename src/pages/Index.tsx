@@ -1,11 +1,15 @@
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import ProductGrid from '@/components/ProductGrid';
 import CartButton from '@/components/CartButton';
 import SidebarToggle from '@/components/SidebarToggle';
+import PremiumBakeryModal from '@/components/PremiumBakeryModal';
+import { Button } from '@/components/ui/button';
 
 const Index: React.FC = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  
   useEffect(() => {
     document.title = 'Crust & Click - Panadería Artesanal';
   }, []);
@@ -30,6 +34,15 @@ const Index: React.FC = () => {
                   Nuestra Filosofía
                 </Link>
               </li>
+              <li className="text-sm md:text-base">
+                <Button 
+                  variant="link" 
+                  className="text-bread-dark hover:text-bread-accent transition-colors p-0"
+                  onClick={() => setIsModalOpen(true)}
+                >
+                  Nuestro Menú
+                </Button>
+              </li>
             </ul>
           </nav>
         </div>
@@ -41,6 +54,7 @@ const Index: React.FC = () => {
       
       <CartButton />
       <SidebarToggle />
+      <PremiumBakeryModal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)} />
     </div>
   );
 };
