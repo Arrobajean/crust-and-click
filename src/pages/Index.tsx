@@ -1,5 +1,6 @@
 
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import ProductGrid from '@/components/ProductGrid';
 import CartButton from '@/components/CartButton';
 
@@ -16,6 +17,20 @@ const Index: React.FC = () => {
           <p className="text-sm md:text-base text-gray-600 max-w-lg mx-auto">
             Pan artesanal elaborado con ingredientes ecológicos, masa madre natural y tiempo.
           </p>
+          <nav className="mt-6">
+            <ul className="flex justify-center space-x-6">
+              <li className="text-sm md:text-base">
+                <Link to="/" className="text-bread-dark hover:text-bread-accent transition-colors">
+                  Productos
+                </Link>
+              </li>
+              <li className="text-sm md:text-base">
+                <Link to="/nuestra-filosofia" className="text-bread-dark hover:text-bread-accent transition-colors">
+                  Nuestra Filosofía
+                </Link>
+              </li>
+            </ul>
+          </nav>
         </div>
       </header>
       
