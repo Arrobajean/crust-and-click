@@ -25,6 +25,11 @@ const Index: React.FC = () => {
                 </Link>
               </li>
               <li className="text-sm md:text-base">
+                <Link to="/como-trabajamos" className="text-bread-dark hover:text-bread-accent transition-colors">
+                  Cómo Trabajamos
+                </Link>
+              </li>
+              <li className="text-sm md:text-base">
                 <Link to="/nuestra-filosofia" className="text-bread-dark hover:text-bread-accent transition-colors">
                   Nuestra Filosofía
                 </Link>

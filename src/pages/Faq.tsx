@@ -107,7 +107,7 @@ const Faq: React.FC = () => {
 
         <div className="mt-16">
           <p className="text-bread-dark/70 text-sm md:text-base">
-            ¿No encuentras tu respuesta? <Link to="/contacto" className="text-bread-accent hover:underline transition-colors">Contáctanos</Link>
+            ¿No encuentras tu respuesta? <Link to="/contacto" className="text-bread-accent hover:underline transition-colors">Contáctanos</Link> o visita nuestra página de <Link to="/como-trabajamos" className="text-bread-accent hover:underline transition-colors">Cómo Trabajamos</Link>
           </p>
         </div>
       </div>
