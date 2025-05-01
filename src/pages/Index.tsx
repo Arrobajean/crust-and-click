@@ -29,6 +29,11 @@ const Index: React.FC = () => {
                   Nuestra Filosofía
                 </Link>
               </li>
+              <li className="text-sm md:text-base">
+                <Link to="/faq" className="text-bread-dark hover:text-bread-accent transition-colors">
+                  Preguntas Frecuentes
+                </Link>
+              </li>
             </ul>
           </nav>
         </div>
