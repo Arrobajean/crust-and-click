@@ -33,31 +33,31 @@ const QuickViewModal: React.FC<QuickViewModalProps> = ({ product, isOpen, onClos
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md md:max-w-lg bg-bread-light p-0 rounded-lg overflow-hidden animate-slide-in">
+      <DialogContent className="sm:max-w-md md:max-w-lg bg-[#f1f0fb] p-0 rounded-lg overflow-hidden animate-fade-in">
         <div className="flex flex-col md:flex-row h-full">
-          <div className="md:w-1/2">
+          <div className="md:w-1/2 p-1">
             <img 
               src={product.image} 
               alt={product.name} 
-              className="w-full h-full object-cover"
+              className="w-full h-full object-cover shadow-sm rounded-md"
             />
           </div>
-          <div className="md:w-1/2 p-5">
+          <div className="md:w-1/2 p-6">
             <DialogHeader>
               <div className="flex justify-between items-start">
-                <DialogTitle className="font-serif text-xl md:text-2xl font-medium">
-                  {product.name}
-                </DialogTitle>
+                <div>
+                  <DialogTitle className="uppercase font-sans text-xl md:text-2xl font-bold">
+                    {product.name}
+                  </DialogTitle>
+                  <p className="text-sm font-medium italic text-gray-500 mt-1">Made in Prim</p>
+                </div>
                 <DialogClose className="h-6 w-6 hover:bg-gray-100 rounded-full p-1">
                   <X className="h-full w-full" />
                 </DialogClose>
               </div>
-              <p className="text-lg font-medium mt-1">{product.price.toFixed(2)}€/Ud</p>
             </DialogHeader>
             
-            <div className="mt-4">
-              <p className="text-sm text-gray-600 mb-4">{product.description}</p>
-              
+            <div className="mt-6 space-y-5">
               <div className="flex flex-wrap gap-2 mb-4">
                 {product.isEco && (
                   <div className="badge badge-eco flex items-center gap-1">
@@ -75,12 +75,31 @@ const QuickViewModal: React.FC<QuickViewModalProps> = ({ product, isOpen, onClos
               
               <div className="space-y-4 mb-6">
                 <div>
-                  <label className="block text-sm font-medium mb-1">Formato</label>
+                  <label className="block text-sm font-medium mb-2">Cantidad</label>
+                  <div className="flex items-center border border-gray-200 rounded-md overflow-hidden">
+                    <button 
+                      className="p-2 bg-white hover:bg-gray-50"
+                      onClick={decrementQuantity}
+                    >
+                      <Minus className="h-4 w-4 text-gray-600" />
+                    </button>
+                    <span className="flex-1 text-center py-2 bg-white">{quantity}</span>
+                    <button 
+                      className="p-2 bg-white hover:bg-gray-50"
+                      onClick={incrementQuantity}
+                    >
+                      <Plus className="h-4 w-4 text-gray-600" />
+                    </button>
+                  </div>
+                </div>
+                
+                <div>
+                  <label className="block text-sm font-medium mb-2">Formato</label>
                   <Select
                     value={sliceOption}
                     onValueChange={setSliceOption}
                   >
-                    <SelectTrigger className="w-full">
+                    <SelectTrigger className="w-full border-gray-200 bg-white">
                       <SelectValue placeholder="Selecciona formato" />
                     </SelectTrigger>
                     <SelectContent>
@@ -92,38 +111,23 @@ const QuickViewModal: React.FC<QuickViewModalProps> = ({ product, isOpen, onClos
                     </SelectContent>
                   </Select>
                 </div>
-                
-                <div>
-                  <label className="block text-sm font-medium mb-1">Cantidad</label>
-                  <div className="flex items-center">
-                    <Button 
-                      variant="outline" 
-                      size="icon" 
-                      className="h-8 w-8" 
-                      onClick={decrementQuantity}
-                    >
-                      <Minus className="h-3 w-3" />
-                    </Button>
-                    <span className="w-12 text-center">{quantity}</span>
-                    <Button 
-                      variant="outline" 
-                      size="icon" 
-                      className="h-8 w-8" 
-                      onClick={incrementQuantity}
-                    >
-                      <Plus className="h-3 w-3" />
-                    </Button>
-                  </div>
-                </div>
               </div>
               
               <Button 
-                className="w-full bg-bread-dark hover:bg-bread-dark/90 text-white" 
+                className="w-full bg-[#807c5c] hover:bg-[#6a6849] text-white font-medium border-2 border-[#807c5c] py-6"
                 onClick={handleAddToCart}
               >
                 <ShoppingCart className="h-4 w-4 mr-2" /> 
-                Añadir al carrito · {(product.price * quantity).toFixed(2)}€
+                {product.price.toFixed(2)}€/ud. – Añadir a la cesta
               </Button>
+              
+              <div className="mt-6 text-center text-gray-600">
+                <p className="text-sm">
+                  <span className="font-bold">Producto artesanal.</span> Elaborado con ingredientes ecológicos, 
+                  masa madre natural y tiempo. Nuestro pan se hornea diariamente para garantizar 
+                  la máxima frescura y sabor.
+                </p>
+              </div>
             </div>
           </div>
         </div>
