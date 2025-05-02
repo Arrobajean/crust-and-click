@@ -4,7 +4,6 @@ import { LeafyGreen, WheatOff } from 'lucide-react';
 import { Product } from '@/lib/data';
 import QuickViewModal from './QuickViewModal';
 import DetailedProductView from './DetailedProductView';
-import { HoverCard, HoverCardContent, HoverCardTrigger } from '@/components/ui/hover-card';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 import { toast } from '@/components/ui/sonner';
@@ -20,7 +19,8 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const [sliceOption, setSliceOption] = useState(product.sliceOptions[0]);
   const { name, price, image, isEco, isGlutenFree } = product;
 
-  const handleAddToCart = () => {
+  const handleAddToCart = (e?: React.MouseEvent) => {
+    e?.stopPropagation();
     toast(`${quantity} ${product.name} añadido al carrito`, {
       description: `Formato: ${sliceOption}`,
       action: {
@@ -28,6 +28,16 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         onClick: () => console.log("Ver carrito clicked"),
       },
     });
+  };
+
+  // Prevent closing the overlay when interacting with selects
+  const handleSelectClick = (e: React.MouseEvent) => {
+    e.stopPropagation();
+  };
+
+  const openQuickView = (e: React.MouseEvent) => {
+    e.stopPropagation();
+    setIsQuickViewOpen(true);
   };
 
   return (
@@ -43,15 +53,20 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           onClick={() => setIsDetailViewOpen(true)}
         >
           <div className="text-center p-4 w-full max-w-[250px]">
-            <p className="text-xs tracking-wider text-white/70 uppercase mb-1">VISTA RÁPIDA</p>
+            <button 
+              onClick={openQuickView}
+              className="text-xs tracking-wider text-white/70 uppercase mb-1 hover:text-white transition-colors cursor-pointer"
+            >
+              VISTA RÁPIDA
+            </button>
             <h3 className="font-sans text-white text-lg uppercase font-medium mb-4">{name}</h3>
             
-            <div className="space-y-3 mb-4">
-              <Select defaultValue={sliceOption} onValueChange={setSliceOption}>
+            <div className="space-y-3 mb-4" onClick={handleSelectClick}>
+              <Select value={sliceOption} onValueChange={setSliceOption}>
                 <SelectTrigger className="w-full bg-white/20 border-white/30 text-white">
                   <SelectValue placeholder="Formato" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-white border-none shadow-lg">
                   {product.sliceOptions.map((option) => (
                     <SelectItem key={option} value={option}>
                       {option}
@@ -60,11 +75,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                 </SelectContent>
               </Select>
               
-              <Select defaultValue="1" onValueChange={(val) => setQuantity(Number(val))}>
+              <Select value={quantity.toString()} onValueChange={(val) => setQuantity(Number(val))}>
                 <SelectTrigger className="w-full bg-white/20 border-white/30 text-white">
                   <SelectValue placeholder="Cantidad" />
                 </SelectTrigger>
-                <SelectContent>
+                <SelectContent className="bg-white border-none shadow-lg">
                   {[1,2,3,4,5,6,7,8,9,10].map((num) => (
                     <SelectItem key={num} value={num.toString()}>
                       {num}
@@ -75,10 +90,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             </div>
             
             <Button 
-              onClick={(e) => {
-                e.stopPropagation();
-                handleAddToCart();
-              }}
+              onClick={handleAddToCart}
               className="w-full bg-[#807c5c] hover:bg-[#6a6749] border-none text-white"
             >
               {price.toFixed(2)}€/ud - Añadir a la cesta

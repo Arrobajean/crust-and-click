@@ -5,8 +5,7 @@ import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Product } from '@/lib/data';
 import { toast } from '@/components/ui/sonner';
-import { LeafyGreen, Minus, Plus, ShoppingCart, WheatOff, X } from 'lucide-react';
-import { Separator } from '@/components/ui/separator';
+import { LeafyGreen, Minus, Plus, WheatOff, X } from 'lucide-react';
 
 interface QuickViewModalProps {
   product: Product;
@@ -17,6 +16,7 @@ interface QuickViewModalProps {
 const QuickViewModal: React.FC<QuickViewModalProps> = ({ product, isOpen, onClose }) => {
   const [quantity, setQuantity] = useState(1);
   const [sliceOption, setSliceOption] = useState(product.sliceOptions[0]);
+  const [activeImageIndex, setActiveImageIndex] = useState(0);
 
   const incrementQuantity = () => setQuantity(prev => prev + 1);
   const decrementQuantity = () => setQuantity(prev => (prev > 1 ? prev - 1 : 1));
@@ -34,11 +34,11 @@ const QuickViewModal: React.FC<QuickViewModalProps> = ({ product, isOpen, onClos
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="sm:max-w-md bg-bread-light p-0 rounded-lg overflow-hidden">
+      <DialogContent className="max-w-[600px] bg-white/95 backdrop-blur-md p-0 rounded-lg overflow-hidden border-0 shadow-xl">
         <div className="p-6 text-center">
-          <div className="flex justify-between items-start mb-4">
+          <div className="flex justify-between items-start">
             <div className="flex-1"></div>
-            <DialogTitle className="font-serif text-xl uppercase font-medium text-center flex-grow">
+            <DialogTitle className="font-sans text-xl uppercase font-medium text-center flex-grow">
               {product.name}
             </DialogTitle>
             <div className="flex-1 flex justify-end">
@@ -48,71 +48,65 @@ const QuickViewModal: React.FC<QuickViewModalProps> = ({ product, isOpen, onClos
             </div>
           </div>
 
-          <p className="text-bread-dark/70 italic mb-6">Made in Prim</p>
+          <p className="text-gray-500 italic mt-1 mb-6">Made in Prim</p>
           
-          <div className="aspect-square max-w-[200px] mx-auto mb-6 relative">
+          <div className="max-w-[400px] mx-auto mb-8 relative">
             <img 
               src={product.image} 
               alt={product.name} 
-              className="w-full h-full object-cover rounded-md"
+              className="w-full aspect-square object-cover rounded-md"
             />
-
-            <div className="absolute bottom-[-15px] left-1/2 transform -translate-x-1/2 flex items-center gap-1">
-              <div className="w-2 h-2 rounded-full bg-bread-dark"></div>
-              <div className="w-2 h-2 rounded-full bg-bread-dark/30"></div>
-              <div className="w-2 h-2 rounded-full bg-bread-dark/30"></div>
+            
+            <div className="flex justify-center gap-2 mt-4">
+              {[0, 1, 2, 3, 4].map((index) => (
+                <button 
+                  key={index}
+                  onClick={() => setActiveImageIndex(index)}
+                  className={`w-2 h-2 rounded-full ${activeImageIndex === index ? 'bg-[#807c5c]' : 'bg-gray-300'}`}
+                />
+              ))}
             </div>
           </div>
           
-          <div className="space-y-4 mb-6 max-w-[300px] mx-auto">
-            <div>
-              <Select 
-                value={sliceOption}
-                onValueChange={setSliceOption}
-              >
-                <SelectTrigger className="w-full border-bread-dark/30">
-                  <SelectValue placeholder="Selecciona formato" />
-                </SelectTrigger>
-                <SelectContent>
-                  {product.sliceOptions.map((option) => (
-                    <SelectItem key={option} value={option}>
-                      {option}
-                    </SelectItem>
-                  ))}
-                </SelectContent>
-              </Select>
-            </div>
+          <div className="grid grid-cols-2 gap-4 max-w-[500px] mx-auto mb-6">
+            <Select value={quantity.toString()} onValueChange={(val) => setQuantity(Number(val))}>
+              <SelectTrigger className="border-[#807c5c]/30 bg-transparent">
+                <SelectValue placeholder="Cantidad" />
+              </SelectTrigger>
+              <SelectContent>
+                {[1,2,3,4,5,6,7,8,9,10].map((num) => (
+                  <SelectItem key={num} value={num.toString()}>
+                    {num}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
             
-            <div>
-              <div className="flex items-center border border-bread-dark/30 rounded-md">
-                <button 
-                  className="h-9 w-10 flex items-center justify-center"
-                  onClick={decrementQuantity}
-                >
-                  <Minus className="h-3 w-3" />
-                </button>
-                <div className="flex-1 text-center">{quantity}</div>
-                <button 
-                  className="h-9 w-10 flex items-center justify-center"
-                  onClick={incrementQuantity}
-                >
-                  <Plus className="h-3 w-3" />
-                </button>
-              </div>
-            </div>
+            <Select value={sliceOption} onValueChange={setSliceOption}>
+              <SelectTrigger className="border-[#807c5c]/30 bg-transparent">
+                <SelectValue placeholder="Formato" />
+              </SelectTrigger>
+              <SelectContent>
+                {product.sliceOptions.map((option) => (
+                  <SelectItem key={option} value={option}>
+                    {option}
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </div>
           
           <Button 
-            className="w-full bg-[#807c5c] hover:bg-[#6a6749] border-none text-white mb-6 max-w-[300px]" 
             onClick={handleAddToCart}
+            className="w-full max-w-[500px] bg-[#807c5c] hover:bg-[#6a6749] border-none text-white py-6 mb-8"
           >
-            {(product.price * quantity).toFixed(2)}€ – Añadir a la cesta
+            {(product.price * quantity).toFixed(2)}€/ud. - Añadir a la cesta
           </Button>
           
           <div className="text-center mb-4">
-            <h4 className="uppercase text-xs font-medium tracking-wider mb-2 text-bread-dark/70">Saludable</h4>
-            <p className="text-sm text-bread-dark/80 max-w-[300px] mx-auto">
-              {product.nutritionalInfo}
+            <h4 className="uppercase text-sm font-medium tracking-wider mb-2">SALUDABLE</h4>
+            <p className="text-sm text-gray-600 max-w-[80%] mx-auto">
+              {product.nutritionalInfo || "Harina 100% integral = más fibra y nutrientes"}
             </p>
           </div>
           
