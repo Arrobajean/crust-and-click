@@ -7,6 +7,7 @@ import DetailedProductView from './DetailedProductView';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
 import { useCart } from '@/contexts/CartContext';
+import CartToast from './CartToast';
 
 interface ProductCardProps {
   product: Product;
@@ -19,12 +20,14 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const [sliceOption, setSliceOption] = useState(product.sliceOptions[0]);
   const [isHovered, setIsHovered] = useState(false);
   const [dropdownOpen, setDropdownOpen] = useState(false);
+  const [cartToastOpen, setCartToastOpen] = useState(false);
   const { name, price, image, isEco, isGlutenFree } = product;
   const { addToCart } = useCart();
 
   const handleAddToCart = (e?: React.MouseEvent) => {
     e?.stopPropagation();
     addToCart(product.id, quantity, sliceOption);
+    setCartToastOpen(true);
   };
 
   // Prevent closing the overlay when interacting with selects
@@ -58,7 +61,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           className="w-full h-full object-cover"
         />
         <div 
-          className={`product-overlay ${isHovered ? 'opacity-100' : 'opacity-0'}`}
+          className={`product-overlay absolute inset-0 bg-black/70 flex items-center justify-center transition-opacity duration-300 ${isHovered ? 'opacity-100' : 'opacity-0'}`}
           onClick={() => setIsDetailViewOpen(true)}
         >
           <div className="text-center p-4 w-full max-w-[250px]">
@@ -79,7 +82,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                 <SelectTrigger className="w-full bg-white/20 border-white/30 text-white">
                   <SelectValue placeholder="Formato" />
                 </SelectTrigger>
-                <SelectContent className="bg-white border-none shadow-lg">
+                <SelectContent className="bg-white border-none shadow-lg z-50">
                   {product.sliceOptions.map((option) => (
                     <SelectItem key={option} value={option}>
                       {option}
@@ -96,7 +99,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                 <SelectTrigger className="w-full bg-white/20 border-white/30 text-white">
                   <SelectValue placeholder="Cantidad" />
                 </SelectTrigger>
-                <SelectContent className="bg-white border-none shadow-lg">
+                <SelectContent className="bg-white border-none shadow-lg z-50">
                   {[1,2,3,4,5,6,7,8,9,10].map((num) => (
                     <SelectItem key={num} value={num.toString()}>
                       {num}
@@ -116,13 +119,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
         </div>
         <div className="absolute top-2 right-2 flex flex-col gap-1">
           {isEco && (
-            <div className="badge badge-eco flex items-center gap-1">
+            <div className="badge badge-eco flex items-center gap-1 bg-green-100 text-green-800 text-xs px-2 py-1 rounded-full">
               <LeafyGreen className="h-3 w-3" />
               <span>Eco</span>
             </div>
           )}
           {isGlutenFree && (
-            <div className="badge badge-gluten-free flex items-center gap-1">
+            <div className="badge badge-gluten-free flex items-center gap-1 bg-amber-100 text-amber-800 text-xs px-2 py-1 rounded-full">
               <WheatOff className="h-3 w-3" />
               <span>Sin gluten</span>
             </div>
@@ -149,6 +152,11 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
           onClose={() => setIsDetailViewOpen(false)}
         />
       )}
+      
+      <CartToast 
+        isOpen={cartToastOpen} 
+        onClose={() => setCartToastOpen(false)} 
+      />
     </>
   );
 };

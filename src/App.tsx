@@ -9,7 +9,6 @@ import NotFound from "./pages/NotFound";
 import Philosophy from "./pages/Philosophy";
 import Faq from "./pages/Faq";
 import HowWeWork from "./pages/HowWeWork";
-import Store from "./pages/Store";
 import { CartProvider } from "./contexts/CartContext";
 
 const queryClient = new QueryClient();
@@ -23,7 +22,6 @@ const App = () => (
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<Index />} />
-            <Route path="/tienda" element={<Store />} />
             <Route path="/nuestra-filosofia" element={<Philosophy />} />
             <Route path="/faq" element={<Faq />} />
             <Route path="/como-trabajamos" element={<HowWeWork />} />

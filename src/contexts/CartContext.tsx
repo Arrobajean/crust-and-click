@@ -8,6 +8,7 @@ interface CartContextType {
   addToCart: (productId: number, quantity: number, sliceOption: string, variantId?: number) => void;
   removeFromCart: (index: number) => void;
   updateQuantity: (index: number, quantity: number) => void;
+  updateFormat: (index: number, sliceOption: string) => void;
   clearCart: () => void;
   cartCount: number;
   cartTotal: number;
@@ -23,6 +24,7 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 
 export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   const [items, setItems] = useState<CartItem[]>([]);
+  const [showCartToast, setShowCartToast] = useState(false);
   
   useEffect(() => {
     // Load cart from localStorage on component mount
@@ -59,6 +61,9 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     }
 
     // Show toast notification
+    setShowCartToast(true);
+    setTimeout(() => setShowCartToast(false), 5000);
+    
     const product = products.find(p => p.id === productId);
     if (product) {
       toast(`${quantity} ${product.name} añadido al carrito`, {
@@ -82,6 +87,12 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
     } else {
       updatedItems[index].quantity = quantity;
     }
+    setItems(updatedItems);
+  };
+  
+  const updateFormat = (index: number, sliceOption: string) => {
+    const updatedItems = [...items];
+    updatedItems[index].sliceOption = sliceOption;
     setItems(updatedItems);
   };
 
@@ -117,6 +128,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({ children
       addToCart,
       removeFromCart,
       updateQuantity,
+      updateFormat,
       clearCart,
       cartCount,
       cartTotal,
