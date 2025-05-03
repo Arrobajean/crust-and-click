@@ -4,9 +4,9 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetClose } from '@/comp
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Product } from '@/lib/data';
-import { toast } from '@/components/ui/sonner';
-import { Check, LeafyGreen, Minus, Plus, ShoppingCart, WheatOff, X } from 'lucide-react';
+import { LeafyGreen, Minus, Plus, ShoppingCart, WheatOff, X } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
+import { useCart } from '@/contexts/CartContext';
 
 interface DetailedProductViewProps {
   product: Product;
@@ -17,18 +17,13 @@ interface DetailedProductViewProps {
 const DetailedProductView: React.FC<DetailedProductViewProps> = ({ product, isOpen, onClose }) => {
   const [quantity, setQuantity] = useState(1);
   const [sliceOption, setSliceOption] = useState(product.sliceOptions[0]);
+  const { addToCart } = useCart();
 
   const incrementQuantity = () => setQuantity(prev => prev + 1);
   const decrementQuantity = () => setQuantity(prev => (prev > 1 ? prev - 1 : 1));
   
   const handleAddToCart = () => {
-    toast(`${quantity} ${product.name} añadido al carrito`, {
-      description: `Formato: ${sliceOption}`,
-      action: {
-        label: "Ver carrito",
-        onClick: () => console.log("Ver carrito clicked"),
-      },
-    });
+    addToCart(product.id, quantity, sliceOption);
     onClose();
   };
 
@@ -88,6 +83,20 @@ const DetailedProductView: React.FC<DetailedProductViewProps> = ({ product, isOp
             <h4 className="uppercase text-xs font-medium tracking-wider mb-2">Ingredientes</h4>
             <p className="text-sm text-gray-600">{product.ingredients}</p>
           </div>
+
+          {product.allergens && product.allergens.length > 0 && (
+            <div>
+              <h4 className="uppercase text-xs font-medium tracking-wider mb-2">Alérgenos</h4>
+              <p className="text-sm text-gray-600">{product.allergens.join(', ')}</p>
+            </div>
+          )}
+
+          {product.conservation && (
+            <div>
+              <h4 className="uppercase text-xs font-medium tracking-wider mb-2">Conservación</h4>
+              <p className="text-sm text-gray-600">{product.conservation}</p>
+            </div>
+          )}
           
           <Separator />
           
@@ -142,6 +151,29 @@ const DetailedProductView: React.FC<DetailedProductViewProps> = ({ product, isOp
               Añadir al carrito · {(product.price * quantity).toFixed(2)}€
             </Button>
           </div>
+
+          {product.related && product.related.length > 0 && (
+            <div className="pt-6">
+              <h4 className="font-medium mb-4">También podría interesarte</h4>
+              <div className="grid grid-cols-3 gap-2">
+                {product.related.map(relatedId => {
+                  const relatedProduct = products.find(p => p.id === relatedId);
+                  if (!relatedProduct) return null;
+                  
+                  return (
+                    <div key={relatedId} className="text-center">
+                      <img 
+                        src={relatedProduct.image} 
+                        alt={relatedProduct.name} 
+                        className="aspect-square w-full object-cover mb-2"
+                      />
+                      <p className="text-xs font-medium line-clamp-2">{relatedProduct.name}</p>
+                    </div>
+                  );
+                })}
+              </div>
+            </div>
+          )}
         </div>
       </SheetContent>
     </Sheet>

@@ -10,7 +10,28 @@ export interface Product {
   isGlutenFree?: boolean;
   nutritionalInfo: string;
   ingredients: string;
+  allergens?: string[];
+  conservation?: string;
+  recommendations?: string;
   sliceOptions: string[];
+  inStock: boolean;
+  stockQuantity?: number;
+  variants?: ProductVariant[];
+  related?: number[];
+}
+
+export interface ProductVariant {
+  id: number;
+  name: string;
+  price: number;
+  inStock: boolean;
+}
+
+export interface CartItem {
+  productId: number;
+  quantity: number;
+  sliceOption: string;
+  variantId?: number;
 }
 
 export const products: Product[] = [
@@ -24,7 +45,13 @@ export const products: Product[] = [
     isEco: true,
     nutritionalInfo: "Rico en antioxidantes y con un índice glucémico más bajo que el pan convencional.",
     ingredients: "Harina de trigo ecológica, agua, masa madre natural, sal marina.",
-    sliceOptions: ["Entero", "Rebanado"]
+    allergens: ["Gluten"],
+    conservation: "Conservar en lugar fresco y seco. Consumir preferentemente en 3-4 días.",
+    recommendations: "Ideal para acompañar quesos, embutidos o solo con un buen aceite de oliva.",
+    sliceOptions: ["Entero", "Rebanado"],
+    inStock: true,
+    stockQuantity: 15,
+    related: [2, 3, 6]
   },
   {
     id: 2,
@@ -36,7 +63,13 @@ export const products: Product[] = [
     isEco: true,
     nutritionalInfo: "Alto contenido en fibra y proteínas vegetales. Excelente fuente de minerales.",
     ingredients: "Harina integral ecológica, agua, masa madre, semillas de sésamo y girasol, sal marina.",
-    sliceOptions: ["Entero", "Rebanado"]
+    allergens: ["Gluten", "Sésamo"],
+    conservation: "Conservar en lugar fresco y seco. Consumir preferentemente en 3-4 días.",
+    recommendations: "Ideal para tostadas con aguacate o hummus.",
+    sliceOptions: ["Entero", "Rebanado"],
+    inStock: true,
+    stockQuantity: 10,
+    related: [1, 4]
   },
   {
     id: 3,
@@ -47,7 +80,13 @@ export const products: Product[] = [
     category: "Tradicional",
     nutritionalInfo: "Pan ligero y de fácil digestión gracias a su larga fermentación.",
     ingredients: "Harina de trigo, agua, levadura, sal.",
-    sliceOptions: ["Entero"]
+    allergens: ["Gluten"],
+    conservation: "Consumir preferentemente en el día.",
+    recommendations: "Perfecto para bocadillos o para acompañar comidas.",
+    sliceOptions: ["Entero"],
+    inStock: true,
+    stockQuantity: 20,
+    related: [1]
   },
   {
     id: 4,
@@ -58,7 +97,13 @@ export const products: Product[] = [
     category: "Especial",
     nutritionalInfo: "Bajo índice glucémico y alto contenido en fibra soluble.",
     ingredients: "Harina de centeno ecológica, agua, masa madre de centeno, sal marina.",
-    sliceOptions: ["Entero", "Rebanado"]
+    allergens: ["Gluten"],
+    conservation: "Conservar envuelto en un paño de algodón. Consumir preferentemente en 5-7 días.",
+    recommendations: "Ideal para acompañar platos fuertes o carnes.",
+    sliceOptions: ["Entero", "Rebanado"],
+    inStock: true,
+    stockQuantity: 8,
+    related: [2, 6]
   },
   {
     id: 5,
@@ -70,7 +115,13 @@ export const products: Product[] = [
     isGlutenFree: true,
     nutritionalInfo: "Apto para celíacos. Elaborado en obrador independiente para evitar contaminación cruzada.",
     ingredients: "Mezcla de harinas sin gluten (arroz, maíz), agua, levadura, fibras vegetales, sal.",
-    sliceOptions: ["Entero", "Rebanado"]
+    allergens: [],
+    conservation: "Conservar en refrigerador. Consumir preferentemente en 2-3 días.",
+    recommendations: "Ideal para tostadas o para acompañar comidas.",
+    sliceOptions: ["Entero", "Rebanado"],
+    inStock: true,
+    stockQuantity: 5,
+    related: []
   },
   {
     id: 6,
@@ -82,6 +133,21 @@ export const products: Product[] = [
     isEco: true,
     nutritionalInfo: "Rico en proteínas y minerales. Más fácil de digerir que el pan de trigo común.",
     ingredients: "Harina de espelta ecológica, agua, masa madre de espelta, sal marina.",
-    sliceOptions: ["Entero", "Rebanado"]
+    allergens: ["Gluten"],
+    conservation: "Conservar en lugar fresco y seco. Consumir preferentemente en 3-4 días.",
+    recommendations: "Perfecto para tostadas y acompañar con mermeladas caseras.",
+    sliceOptions: ["Entero", "Rebanado"],
+    inStock: true,
+    stockQuantity: 12,
+    related: [1, 4]
   }
+];
+
+export const categories = [
+  { id: "all", name: "Todos" },
+  { id: "Tradicional", name: "Tradicional" },
+  { id: "Integral", name: "Integral" },
+  { id: "Especial", name: "Especial" },
+  { id: "Sin Gluten", name: "Sin Gluten" },
+  { id: "Antiguo", name: "Antiguos" }
 ];

@@ -4,8 +4,8 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogClose } from '@
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Product } from '@/lib/data';
-import { toast } from '@/components/ui/sonner';
 import { LeafyGreen, Minus, Plus, WheatOff, X } from 'lucide-react';
+import { useCart } from '@/contexts/CartContext';
 
 interface QuickViewModalProps {
   product: Product;
@@ -17,18 +17,13 @@ const QuickViewModal: React.FC<QuickViewModalProps> = ({ product, isOpen, onClos
   const [quantity, setQuantity] = useState(1);
   const [sliceOption, setSliceOption] = useState(product.sliceOptions[0]);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
+  const { addToCart } = useCart();
 
   const incrementQuantity = () => setQuantity(prev => prev + 1);
   const decrementQuantity = () => setQuantity(prev => (prev > 1 ? prev - 1 : 1));
   
   const handleAddToCart = () => {
-    toast(`${quantity} ${product.name} añadido al carrito`, {
-      description: `Formato: ${sliceOption}`,
-      action: {
-        label: "Ver carrito",
-        onClick: () => console.log("Ver carrito clicked"),
-      },
-    });
+    addToCart(product.id, quantity, sliceOption);
     onClose();
   };
 

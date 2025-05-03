@@ -6,7 +6,7 @@ import QuickViewModal from './QuickViewModal';
 import DetailedProductView from './DetailedProductView';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Button } from '@/components/ui/button';
-import { toast } from '@/components/ui/sonner';
+import { useCart } from '@/contexts/CartContext';
 
 interface ProductCardProps {
   product: Product;
@@ -18,17 +18,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const [quantity, setQuantity] = useState(1);
   const [sliceOption, setSliceOption] = useState(product.sliceOptions[0]);
   const [isHovered, setIsHovered] = useState(false);
+  const [dropdownOpen, setDropdownOpen] = useState(false);
   const { name, price, image, isEco, isGlutenFree } = product;
+  const { addToCart } = useCart();
 
   const handleAddToCart = (e?: React.MouseEvent) => {
     e?.stopPropagation();
-    toast(`${quantity} ${product.name} añadido al carrito`, {
-      description: `Formato: ${sliceOption}`,
-      action: {
-        label: "Ver carrito",
-        onClick: () => console.log("Ver carrito clicked"),
-      },
-    });
+    addToCart(product.id, quantity, sliceOption);
   };
 
   // Prevent closing the overlay when interacting with selects
@@ -41,12 +37,20 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
     setIsQuickViewOpen(true);
   };
 
+  // Track dropdown state to maintain hover
+  const handleDropdownChange = (open: boolean) => {
+    setDropdownOpen(open);
+    if (open) {
+      setIsHovered(true);
+    }
+  };
+
   return (
     <>
       <div 
         className="product-card aspect-[3/4] mb-6 relative"
         onMouseEnter={() => setIsHovered(true)}
-        onMouseLeave={() => setIsHovered(false)}
+        onMouseLeave={() => !dropdownOpen && setIsHovered(false)}
       >
         <img 
           src={image} 
@@ -70,9 +74,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
               <Select 
                 value={sliceOption} 
                 onValueChange={setSliceOption} 
-                onOpenChange={(open) => {
-                  if (open) setIsHovered(true);
-                }}
+                onOpenChange={handleDropdownChange}
               >
                 <SelectTrigger className="w-full bg-white/20 border-white/30 text-white">
                   <SelectValue placeholder="Formato" />
@@ -89,9 +91,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
               <Select 
                 value={quantity.toString()} 
                 onValueChange={(val) => setQuantity(Number(val))}
-                onOpenChange={(open) => {
-                  if (open) setIsHovered(true);
-                }}
+                onOpenChange={handleDropdownChange}
               >
                 <SelectTrigger className="w-full bg-white/20 border-white/30 text-white">
                   <SelectValue placeholder="Cantidad" />
