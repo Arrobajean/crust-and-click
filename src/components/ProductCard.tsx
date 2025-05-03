@@ -17,6 +17,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
   const [isDetailViewOpen, setIsDetailViewOpen] = useState(false);
   const [quantity, setQuantity] = useState(1);
   const [sliceOption, setSliceOption] = useState(product.sliceOptions[0]);
+  const [isHovered, setIsHovered] = useState(false);
   const { name, price, image, isEco, isGlutenFree } = product;
 
   const handleAddToCart = (e?: React.MouseEvent) => {
@@ -42,14 +43,18 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
 
   return (
     <>
-      <div className="product-card aspect-[3/4] mb-6 relative">
+      <div 
+        className="product-card aspect-[3/4] mb-6 relative"
+        onMouseEnter={() => setIsHovered(true)}
+        onMouseLeave={() => setIsHovered(false)}
+      >
         <img 
           src={image} 
           alt={name} 
           className="w-full h-full object-cover"
         />
         <div 
-          className="product-overlay"
+          className={`product-overlay ${isHovered ? 'opacity-100' : 'opacity-0'}`}
           onClick={() => setIsDetailViewOpen(true)}
         >
           <div className="text-center p-4 w-full max-w-[250px]">
@@ -62,7 +67,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
             <h3 className="font-sans text-white text-lg uppercase font-medium mb-4">{name}</h3>
             
             <div className="space-y-3 mb-4" onClick={handleSelectClick}>
-              <Select value={sliceOption} onValueChange={setSliceOption}>
+              <Select 
+                value={sliceOption} 
+                onValueChange={setSliceOption} 
+                onOpenChange={(open) => {
+                  if (open) setIsHovered(true);
+                }}
+              >
                 <SelectTrigger className="w-full bg-white/20 border-white/30 text-white">
                   <SelectValue placeholder="Formato" />
                 </SelectTrigger>
@@ -75,7 +86,13 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
                 </SelectContent>
               </Select>
               
-              <Select value={quantity.toString()} onValueChange={(val) => setQuantity(Number(val))}>
+              <Select 
+                value={quantity.toString()} 
+                onValueChange={(val) => setQuantity(Number(val))}
+                onOpenChange={(open) => {
+                  if (open) setIsHovered(true);
+                }}
+              >
                 <SelectTrigger className="w-full bg-white/20 border-white/30 text-white">
                   <SelectValue placeholder="Cantidad" />
                 </SelectTrigger>
