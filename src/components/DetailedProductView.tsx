@@ -3,7 +3,7 @@ import React, { useState } from 'react';
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetClose } from '@/components/ui/sheet';
 import { Button } from '@/components/ui/button';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
-import { Product } from '@/lib/data';
+import { Product, products } from '@/lib/data';
 import { LeafyGreen, Minus, Plus, ShoppingCart, WheatOff, X } from 'lucide-react';
 import { Separator } from '@/components/ui/separator';
 import { useCart } from '@/contexts/CartContext';
