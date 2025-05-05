@@ -1,6 +1,5 @@
 
-import React, { useState } from "react";
-import HomeHeader from "@/components/ui/homeHeader";
+import React from "react";
 import Footer from "@/components/Footer";
 import CartButton from "@/components/CartButton";
 import CartToast from "@/components/CartToast";
@@ -9,6 +8,7 @@ import { useAddToCartWithToast } from "@/hooks/useAddToCartWithToast";
 import FilterBar from "@/components/IndexPage/FilterBar";
 import ProductGridView from "@/components/IndexPage/ProductGridView";
 import ProductListView from "@/components/IndexPage/ProductListView";
+import Header from "@/components/Header";
 
 const Index: React.FC = () => {
   const {
@@ -28,9 +28,20 @@ const Index: React.FC = () => {
 
   return (
     <div className="min-h-screen bg-bread-background">
-      <HomeHeader />
+      <Header />
 
       <main className="px-6 md:px-10 max-w-7xl mx-auto pb-20">
+        <div className="py-8 md:py-16 text-center">
+          <h1 className="font-serif text-3xl md:text-5xl font-medium mb-4">
+            Nuestro Pan Artesanal
+          </h1>
+          <p className="max-w-2xl mx-auto text-bread-dark/80 mb-8">
+            Elaborado con ingredientes orgánicos, masa madre natural y más de 16
+            horas de fermentación. Descubre el auténtico sabor del pan como se
+            hacía antiguamente.
+          </p>
+        </div>
+
         <FilterBar 
           selectedCategory={selectedCategory}
           setSelectedCategory={setSelectedCategory}
