@@ -1,7 +1,6 @@
-
-import React from 'react';
-import { products } from '@/lib/data';
-import ProductCard from './ProductCard';
+import React from "react";
+import { products } from "@/lib/data";
+import ProductCard from "./ProductCard";
 
 const ProductGrid: React.FC = () => {
   return (
