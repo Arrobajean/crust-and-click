@@ -1,3 +1,4 @@
+
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ProductCard from "@/components/ProductCard";
@@ -22,6 +23,7 @@ import {
 } from "@/components/ui/hover-card";
 import { useCart } from "@/contexts/CartContext";
 import { useProductFilter } from "@/hooks/userProductFilter";
+import Footer from "@/components/Footer";
 
 const Index: React.FC = () => {
   const {
@@ -103,7 +105,10 @@ const Index: React.FC = () => {
                 </HoverCardContent>
               </HoverCard>
 
-              <Select value={sortBy} onValueChange={setSortBy}>
+              <Select 
+                value={sortBy} 
+                onValueChange={(value) => setSortBy(value)}
+              >
                 <SelectTrigger className="w-[180px]">
                   <SelectValue placeholder="Ordenar por" />
                 </SelectTrigger>
@@ -207,6 +212,7 @@ const Index: React.FC = () => {
         )}
       </main>
 
+      <Footer />
       <CartButton />
       <CartToast isOpen={toastVisible} onClose={() => setToastVisible(false)} />
     </div>

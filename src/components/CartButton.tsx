@@ -69,7 +69,7 @@ const CartButton: React.FC = () => {
                   return (
                     <div key={`${product.id}-${sliceOption}`} className="mb-4 p-4 bg-white rounded-lg shadow-sm">
                       <div className="flex gap-3">
-                        <img src={product.image} alt={product.name} className="w-20 h-20 object-cover rounded" />
+                        <img src={product.images[0]} alt={product.name} className="w-20 h-20 object-cover rounded" />
                         <div className="flex-1">
                           <div className="flex justify-between">
                             <h4 className="font-medium">{product.name}</h4>
