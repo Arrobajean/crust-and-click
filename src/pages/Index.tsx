@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import ProductCard from "@/components/ProductCard";
@@ -48,7 +47,8 @@ const Index: React.FC = () => {
   }, []);
 
   const handleAddToCart = (productId: string, option: string) => {
-    addToCart(productId, 1, option);
+    // Convert the productId string to a number
+    addToCart(Number(productId), 1, option);
     setToastVisible(true);
   };
 
@@ -189,7 +189,7 @@ const Index: React.FC = () => {
                     <Button
                       onClick={() =>
                         handleAddToCart(
-                          product.id,
+                          String(product.id),
                           product.packageOptions?.[0]?.label ||
                             product.sliceOptions[0]
                         )

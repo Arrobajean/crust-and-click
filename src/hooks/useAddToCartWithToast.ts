@@ -8,7 +8,8 @@ export const useAddToCartWithToast = () => {
   const [toastVisible, setToastVisible] = useState(false);
 
   const handleAddToCart = (productId: string, option: string) => {
-    addToCart(productId, 1, option);
+    // Convert the productId string to a number
+    addToCart(Number(productId), 1, option);
     setToastVisible(true);
   };
 
