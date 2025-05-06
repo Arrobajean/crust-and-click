@@ -38,6 +38,11 @@ const Header: React.FC = () => {
     closed: { opacity: 0, y: -10 },
     open: { opacity: 1, y: 0 },
   };
+  
+  const iconVariants = {
+    open: { rotate: 180, scale: 1 },
+    closed: { rotate: 0, scale: 1 }
+  };
 
   const menuLinks = [
     { title: "Inicio", path: "/" },
@@ -85,13 +90,17 @@ const Header: React.FC = () => {
 
         {/* Mobile Menu Button */}
         {isMobile && (
-          <button
+          <motion.button
             onClick={toggleMenu}
             className="p-2 rounded-md hover:bg-bread-accent/10 transition-colors duration-200 ml-4"
             aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+            initial="closed"
+            animate={isMenuOpen ? "open" : "closed"}
+            variants={iconVariants}
+            transition={{ duration: 0.3 }}
           >
             {isMenuOpen ? <X className="h-6 w-6 text-bread-dark" /> : <Menu className="h-6 w-6 text-bread-dark" />}
-          </button>
+          </motion.button>
         )}
       </div>
 
@@ -110,7 +119,7 @@ const Header: React.FC = () => {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", damping: 20 }}
-              className="absolute right-0 top-0 bottom-0 w-64 bg-bread-light shadow-xl p-6"
+              className="absolute right-0 top-0 bottom-0 w-full sm:w-80 bg-bread-light shadow-xl p-6"
               onClick={(e) => e.stopPropagation()}
             >
               <div className="flex justify-end mb-8">

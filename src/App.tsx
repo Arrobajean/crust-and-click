@@ -16,7 +16,7 @@ import AvisoLegal from "./pages/AvisoLegal";
 import PoliticaPrivacidad from "./pages/PoliticaPrivacidad";
 import PoliticaCookies from "./pages/PoliticaCookies";
 import TerminosCondiciones from "./pages/TerminosCondiciones";
-
+import Checkout from "./pages/Checkout";
 
 const queryClient = new QueryClient();
 
@@ -33,6 +33,7 @@ const App = () => (
               <Route path="/nuestra-filosofia" element={<Philosophy />} />
               <Route path="/faq" element={<Faq />} />
               <Route path="/como-trabajamos" element={<HowWeWork />} />
+              <Route path="/checkout" element={<Checkout />} />
               {/* Legal Pages */}
               <Route path="/aviso-legal" element={<AvisoLegal />} />
               <Route path="/politica-privacidad" element={<PoliticaPrivacidad />} />
