@@ -7,12 +7,14 @@ import { useCart } from '@/contexts/CartContext';
 import { Separator } from '@/components/ui/separator';
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle } from '@/components/ui/alert-dialog';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
+import { useNavigate } from 'react-router-dom';
 
 const CartButton: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [itemToDelete, setItemToDelete] = useState<number | null>(null);
   const [confirmDialogOpen, setConfirmDialogOpen] = useState(false);
   const { items, removeFromCart, updateQuantity, updateFormat, cartCount, cartTotal, getProductDetails } = useCart();
+  const navigate = useNavigate();
   
   const handleRemove = (index: number) => {
     setItemToDelete(index);
@@ -24,6 +26,16 @@ const CartButton: React.FC = () => {
       removeFromCart(itemToDelete);
     }
     setConfirmDialogOpen(false);
+  };
+
+  const handleCheckout = () => {
+    setIsOpen(false);
+    navigate('/checkout');
+  };
+
+  const handleViewCart = () => {
+    setIsOpen(false);
+    navigate('/checkout');
   };
 
   return (
@@ -150,10 +162,10 @@ const CartButton: React.FC = () => {
                   <span className="text-lg font-medium">Total</span>
                   <span className="text-lg font-medium">{cartTotal.toFixed(2)}€</span>
                 </div>
-                <Button className="w-full bg-[#807c5c] hover:bg-[#6a6749]">
+                <Button className="w-full bg-[#807c5c] hover:bg-[#6a6749]" onClick={handleCheckout}>
                   Tramitar pedido
                 </Button>
-                <Button className="w-full mt-2" variant="outline">
+                <Button className="w-full mt-2" variant="outline" onClick={handleViewCart}>
                   Ver carrito
                 </Button>
               </div>

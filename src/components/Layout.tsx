@@ -5,6 +5,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CartButton from "@/components/CartButton";
 import CartToast from "@/components/CartToast";
+import CookieBanner from "@/components/CookieBanner";
 import { useAddToCartWithToast } from "@/hooks/useAddToCartWithToast";
 
 const Layout: React.FC = () => {
@@ -21,6 +22,7 @@ const Layout: React.FC = () => {
       <Footer />
       <CartButton />
       <CartToast isOpen={toastVisible} onClose={() => setToastVisible(false)} />
+      <CookieBanner />
     </div>
   );
 };

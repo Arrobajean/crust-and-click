@@ -1,6 +1,6 @@
 
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X, ShoppingCart } from "lucide-react";
 import { useIsMobile } from "@/hooks/use-mobile";
@@ -10,6 +10,7 @@ const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const isMobile = useIsMobile();
   const { cartCount } = useCart();
+  const navigate = useNavigate();
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -51,6 +52,10 @@ const Header: React.FC = () => {
     { title: "Contacto", path: "/como-trabajamos" },
   ];
 
+  const handleCartClick = () => {
+    navigate('/checkout');
+  };
+
   return (
     <header className="sticky top-0 z-50 bg-bread-light/90 backdrop-blur-sm shadow-sm py-4 px-6 md:px-10">
       <div className="max-w-7xl mx-auto flex items-center justify-between">
@@ -78,14 +83,17 @@ const Header: React.FC = () => {
 
         {/* Cart Icon (always visible) */}
         <div className="relative">
-          <Link to="/" className="p-2 rounded-full bg-bread-accent/10 hover:bg-bread-accent/20 transition-colors duration-200">
+          <button 
+            onClick={handleCartClick}
+            className="p-2 rounded-full bg-bread-accent/10 hover:bg-bread-accent/20 transition-colors duration-200"
+          >
             <ShoppingCart className="h-5 w-5 text-bread-dark" />
             {cartCount > 0 && (
               <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
                 {cartCount}
               </span>
             )}
-          </Link>
+          </button>
         </div>
 
         {/* Mobile Menu Button */}
