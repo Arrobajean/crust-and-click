@@ -5,7 +5,7 @@ import { Separator } from "@/components/ui/separator";
 import { formatPrice } from "@/lib/utils";
 
 const OrderSummary = () => {
-  const { items, cartTotal } = useCart();
+  const { items, cartTotal, getProductDetails } = useCart();
   
   // Calculate shipping costs
   const shippingCost = cartTotal > 50 ? 0 : 4.99;
@@ -16,28 +16,33 @@ const OrderSummary = () => {
       <h2 className="text-xl md:text-2xl font-serif font-semibold mb-6">Resumen del Pedido</h2>
       
       <div className="space-y-4">
-        {items.map((item) => (
-          <div key={item.product.id} className="flex items-center justify-between py-2">
-            <div className="flex items-center">
-              <div className="h-16 w-16 bg-gray-100 rounded overflow-hidden mr-4">
-                <img 
-                  src={item.product.images[0]} 
-                  alt={item.product.name} 
-                  className="h-full w-full object-cover"
-                />
+        {items.map((item, index) => {
+          const details = getProductDetails(item);
+          if (!details) return null;
+          
+          return (
+            <div key={`${item.productId}-${index}`} className="flex items-center justify-between py-2">
+              <div className="flex items-center">
+                <div className="h-16 w-16 bg-gray-100 rounded overflow-hidden mr-4">
+                  <img 
+                    src={details.product.images[0]} 
+                    alt={details.product.name} 
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+                <div>
+                  <h3 className="font-medium">{details.product.name}</h3>
+                  <p className="text-sm text-bread-dark/70">
+                    Cantidad: {item.quantity}
+                  </p>
+                </div>
               </div>
-              <div>
-                <h3 className="font-medium">{item.product.name}</h3>
-                <p className="text-sm text-bread-dark/70">
-                  Cantidad: {item.quantity}
-                </p>
-              </div>
+              <p className="font-medium">
+                {formatPrice(details.product.price * item.quantity)}
+              </p>
             </div>
-            <p className="font-medium">
-              {formatPrice(item.product.price * item.quantity)}
-            </p>
-          </div>
-        ))}
+          );
+        })}
       </div>
       
       <Separator className="my-6" />
