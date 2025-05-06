@@ -5,7 +5,7 @@ import { Separator } from "@/components/ui/separator";
 import { formatPrice } from "@/lib/utils";
 
 const OrderSummary = () => {
-  const { cart, cartTotal } = useCart();
+  const { items, cartTotal } = useCart();
   
   // Calculate shipping costs
   const shippingCost = cartTotal > 50 ? 0 : 4.99;
@@ -16,7 +16,7 @@ const OrderSummary = () => {
       <h2 className="text-xl md:text-2xl font-serif font-semibold mb-6">Resumen del Pedido</h2>
       
       <div className="space-y-4">
-        {cart.map((item) => (
+        {items.map((item) => (
           <div key={item.product.id} className="flex items-center justify-between py-2">
             <div className="flex items-center">
               <div className="h-16 w-16 bg-gray-100 rounded overflow-hidden mr-4">
