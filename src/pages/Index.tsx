@@ -1,14 +1,9 @@
 
 import React from "react";
-import Footer from "@/components/Footer";
-import CartButton from "@/components/CartButton";
-import CartToast from "@/components/CartToast";
 import { useProductFilter } from "@/hooks/userProductFilter";
-import { useAddToCartWithToast } from "@/hooks/useAddToCartWithToast";
 import FilterBar from "@/components/IndexPage/FilterBar";
 import ProductGridView from "@/components/IndexPage/ProductGridView";
 import ProductListView from "@/components/IndexPage/ProductListView";
-import Header from "@/components/Header";
 
 const Index: React.FC = () => {
   const {
@@ -24,13 +19,9 @@ const Index: React.FC = () => {
     filteredCount,
   } = useProductFilter();
 
-  const { toastVisible, setToastVisible } = useAddToCartWithToast();
-
   return (
-    <div className="min-h-screen bg-bread-background">
-      <Header />
-
-      <main className="px-6 md:px-10 max-w-7xl mx-auto pb-20">
+    <div className="bg-bread-background">
+      <div className="px-6 md:px-10 max-w-7xl mx-auto pb-20">
         <div className="py-8 md:py-16 text-center">
           <h1 className="font-serif text-3xl md:text-5xl font-medium mb-4">
             Nuestro Pan Artesanal
@@ -59,11 +50,7 @@ const Index: React.FC = () => {
         ) : (
           <ProductListView products={sortedProducts} />
         )}
-      </main>
-
-      <Footer />
-      <CartButton />
-      <CartToast isOpen={toastVisible} onClose={() => setToastVisible(false)} />
+      </div>
     </div>
   );
 };

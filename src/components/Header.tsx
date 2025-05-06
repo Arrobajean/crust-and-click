@@ -56,50 +56,42 @@ const Header: React.FC = () => {
 
         {/* Desktop Menu */}
         {!isMobile && (
-          <nav className="flex items-center space-x-6">
-            {menuLinks.map((link) => (
-              <Link
-                key={link.title}
-                to={link.path}
-                className="text-bread-dark hover:text-bread-accent transition-colors duration-200 font-medium"
-              >
-                {link.title}
-              </Link>
-            ))}
-            <div className="relative">
-              <Link to="/" className="p-2 rounded-full bg-bread-accent/10 hover:bg-bread-accent/20 transition-colors duration-200">
-                <ShoppingCart className="h-5 w-5 text-bread-dark" />
-                {cartCount > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                    {cartCount}
-                  </span>
-                )}
-              </Link>
+          <nav className="flex items-center justify-center flex-1">
+            <div className="flex items-center space-x-8">
+              {menuLinks.map((link) => (
+                <Link
+                  key={link.title}
+                  to={link.path}
+                  className="text-bread-dark hover:text-bread-accent transition-colors duration-200 font-medium"
+                >
+                  {link.title}
+                </Link>
+              ))}
             </div>
           </nav>
         )}
 
+        {/* Cart Icon (always visible) */}
+        <div className="relative">
+          <Link to="/" className="p-2 rounded-full bg-bread-accent/10 hover:bg-bread-accent/20 transition-colors duration-200">
+            <ShoppingCart className="h-5 w-5 text-bread-dark" />
+            {cartCount > 0 && (
+              <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
+                {cartCount}
+              </span>
+            )}
+          </Link>
+        </div>
+
         {/* Mobile Menu Button */}
         {isMobile && (
-          <div className="flex items-center space-x-4">
-            <div className="relative">
-              <Link to="/" className="p-2 rounded-full bg-bread-accent/10 hover:bg-bread-accent/20 transition-colors duration-200">
-                <ShoppingCart className="h-5 w-5 text-bread-dark" />
-                {cartCount > 0 && (
-                  <span className="absolute -top-1 -right-1 bg-red-500 text-white text-xs rounded-full h-5 w-5 flex items-center justify-center">
-                    {cartCount}
-                  </span>
-                )}
-              </Link>
-            </div>
-            <button
-              onClick={toggleMenu}
-              className="p-2 rounded-md hover:bg-bread-accent/10 transition-colors duration-200"
-              aria-label={isMenuOpen ? "Close menu" : "Open menu"}
-            >
-              {isMenuOpen ? <X className="h-6 w-6 text-bread-dark" /> : <Menu className="h-6 w-6 text-bread-dark" />}
-            </button>
-          </div>
+          <button
+            onClick={toggleMenu}
+            className="p-2 rounded-md hover:bg-bread-accent/10 transition-colors duration-200 ml-4"
+            aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+          >
+            {isMenuOpen ? <X className="h-6 w-6 text-bread-dark" /> : <Menu className="h-6 w-6 text-bread-dark" />}
+          </button>
         )}
       </div>
 
@@ -135,7 +127,7 @@ const Header: React.FC = () => {
                 animate="open"
                 exit="closed"
                 variants={menuVariants}
-                className="flex flex-col space-y-4"
+                className="flex flex-col items-center space-y-6"
               >
                 {menuLinks.map((link) => (
                   <motion.div key={link.title} variants={itemVariants}>
