@@ -10,18 +10,26 @@ import {
 import { useState } from "react";
 import ImageCarousel from "@/components/ImageCarousel";
 import { getProductBadges } from "@/lib/getProductBadges";
+import CartToast from "@/components/Cart/CartToast";
 
 const ProductDetail: React.FC<{ product: Product }> = ({ product }) => {
   const badges = getProductBadges(product);
   const { addToCart } = useCart();
+
   const [quantity, setQuantity] = useState(1);
   const [option, setOption] = useState(
     product.packageOptions?.[0]?.label || product.sliceOptions[0]
   );
+  const [showToast, setShowToast] = useState(false); // ✅ Control del toast
 
   const selectedPrice =
     product.packageOptions?.find((opt) => opt.label === option)?.price ??
     product.price;
+
+  const handleAddToCart = () => {
+    addToCart(product.id, quantity, option);
+    setShowToast(true); // ✅ Activar toast
+  };
 
   return (
     <div className="max-w-5xl mx-auto px-4">
@@ -125,12 +133,15 @@ const ProductDetail: React.FC<{ product: Product }> = ({ product }) => {
         />
 
         <Button
-          onClick={() => addToCart(product.id, quantity, option)}
+          onClick={handleAddToCart}
           className="bg-[#807c5c] hover:bg-[#6a6749] text-white"
         >
           Añadir {quantity} x {selectedPrice.toFixed(2)}€ a la cesta
         </Button>
       </div>
+
+      {/* ✅ CartToast */}
+      <CartToast isOpen={showToast} onClose={() => setShowToast(false)} />
     </div>
   );
 };

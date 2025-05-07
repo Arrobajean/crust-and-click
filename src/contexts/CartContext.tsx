@@ -30,10 +30,9 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
   children,
 }) => {
   const [items, setItems] = useState<CartItem[]>([]);
-  const [showCartToast, setShowCartToast] = useState(false);
 
+  // Cargar carrito desde localStorage al montar el componente
   useEffect(() => {
-    // Load cart from localStorage on component mount
     const savedCart = localStorage.getItem("cart");
     if (savedCart) {
       try {
@@ -44,11 +43,12 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
     }
   }, []);
 
+  // Guardar carrito en localStorage cuando cambie
   useEffect(() => {
-    // Save cart to localStorage whenever it changes
     localStorage.setItem("cart", JSON.stringify(items));
   }, [items]);
 
+  // Añadir un producto al carrito
   const addToCart = (
     productId: number,
     quantity: number,
@@ -63,20 +63,22 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
     );
 
     if (existingItemIndex >= 0) {
-      // Update existing item
+      // Ya existe: sumamos la cantidad
       const updatedItems = [...items];
       updatedItems[existingItemIndex].quantity += quantity;
       setItems(updatedItems);
     } else {
-      // Add new item
+      // Nuevo ítem
       setItems([...items, { productId, quantity, sliceOption, variantId }]);
     }
   };
 
+  // Eliminar un producto del carrito
   const removeFromCart = (index: number) => {
     setItems(items.filter((_, i) => i !== index));
   };
 
+  // Cambiar cantidad de un producto
   const updateQuantity = (index: number, quantity: number) => {
     const updatedItems = [...items];
     if (quantity <= 0) {
@@ -87,35 +89,65 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
     setItems(updatedItems);
   };
 
+  // Actualizar formato (rebanado, entero, paquete, etc.)
   const updateFormat = (index: number, sliceOption: string) => {
     const updatedItems = [...items];
     updatedItems[index].sliceOption = sliceOption;
     setItems(updatedItems);
   };
 
+  // Vaciar el carrito
   const clearCart = () => {
     setItems([]);
   };
 
+  // Total de ítems (sumando cantidades)
   const cartCount = items.reduce((total, item) => total + item.quantity, 0);
 
+  // Total del carrito (con precios dinámicos según opciones)
   const cartTotal = items.reduce((total, item) => {
     const product = products.find((p) => p.id === item.productId);
-    if (product) {
-      return total + product.price * item.quantity;
+    if (!product) return total;
+
+    // Por defecto usamos el precio base
+    let price = product.price;
+
+    // Si el sliceOption es un paquete válido, usamos su precio
+    if (Array.isArray(product.packageOptions)) {
+      const pkg = product.packageOptions.find(
+        (p) => p.label === item.sliceOption
+      );
+      if (pkg) {
+        price = pkg.price;
+      }
     }
-    return total;
+
+    return total + price * item.quantity;
   }, 0);
 
+  // Detalles individuales del producto en el carrito
   const getProductDetails = (item: CartItem) => {
     const product = products.find((p) => p.id === item.productId);
     if (!product) return null;
+
+    // Por defecto usamos el precio base
+    let price = product.price;
+
+    // Si el sliceOption es un paquete válido, usamos su precio
+    if (Array.isArray(product.packageOptions)) {
+      const pkg = product.packageOptions.find(
+        (p) => p.label === item.sliceOption
+      );
+      if (pkg) {
+        price = pkg.price;
+      }
+    }
 
     return {
       product,
       quantity: item.quantity,
       sliceOption: item.sliceOption,
-      total: product.price * item.quantity,
+      total: price * item.quantity,
     };
   };
 
@@ -138,6 +170,7 @@ export const CartProvider: React.FC<{ children: React.ReactNode }> = ({
   );
 };
 
+// Hook para consumir el contexto del carrito
 export const useCart = () => {
   const context = useContext(CartContext);
   if (context === undefined) {

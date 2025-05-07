@@ -5,8 +5,8 @@ export interface Product {
   price: number;
   images: string[];
   category: string;
-  isEco?: boolean;
-  isGlutenFree?: boolean;
+  isEco?: boolean; // puedes eliminarlo si ya no lo necesitas
+  isGlutenFree?: boolean; // puedes eliminarlo si ya no lo necesitas
   nutritionalInfo?: string;
   ingredients?: string;
   allergens?: string[];
@@ -16,6 +16,13 @@ export interface Product {
   related?: number[];
   slug: string;
   packageOptions?: { label: string; price: number }[];
+
+  // 👇 Nuevo campo añadido
+  badges?: {
+    label: string;
+    style?: string; // Tailwind classes (bg/text)
+    icon?: JSX.Element; // Icono opcional si decides usarlo
+  }[];
 }
 
 export interface ProductVariant {
@@ -62,7 +69,24 @@ export const products: Product[] = [
       "Esta pan pide a gritos una tosta de aguacate con jamón ibérico del bueno. Pero no una tosta cualquiera, sino una TOP TOP. ¿Qué es eso de poner el aguacate sobre el pan así sin más..? Pero si todos sabemos que el aguacate es soso... Toma nota: pela el aguacate y añádele un chorro de AOVE, unas gotas de zumo de lima, una gota de tabasco y un pellizco de sal y pimienta. Ahora ya puedes machacarlo con el tenedor. Ahora que nos hemos currado el aguacate, hagamos lo mismo con el tomate: córtalo a daditos y alíñalo con lo siguiente: AOVE, una poco de mostaza a la antigua en grano y otro poco de Dijon, unas gotas de salsa Worcestershire y un poco de jengibre fresco rallado. Listos para montar la tosta: empezando por el aguacate, seguimos con el tomate y coronamos con jamón, pero del bueno, que no hemos hecho todo esto para acabar poniendo un jamón de batalla :-)",
     sliceOptions: ["Entero", "Rebanado"],
     related: [2, 3, 6],
+
+    // ✅ Nuevo sistema de badges:
+    badges: [
+      {
+        label: "Ecológico",
+        style: "bg-green-100 text-green-800",
+      },
+      {
+        label: "Tradicional",
+        style: "bg-yellow-100 text-yellow-800",
+      },
+      {
+        label: "Masa madre",
+        style: "bg-lime-100 text-lime-800",
+      },
+    ],
   },
+
   {
     id: 2,
     slug: "hogaza-integral",
@@ -71,11 +95,11 @@ export const products: Product[] = [
       "Nuestro pan integral está elaborado exclusivamente con harina 100% integral. Incluso la masa madre que contiene está elaborada a base de harina integral. Rico en fibra y nutrientes, es un pan de miga muy mullida y con un potente aroma a cereal. Te ayudará a regular el tránsito intestinal y te saciará más deprisa que el pan hecho a base de harina blanca. Si en su día probaste el pan integral y no te gustó, posiblemente no era un integral de verdad. Saludable, de aroma y sabor intenso, se merece que le des una nueva oportunidad!",
     price: 5.35,
     images: [
-      "/public/images/products/INTEGRAL1.jpg",
-      "/public/images/products/INTEGRAL2.jpg",
-      "/public/images/products/INTEGRAL3.jpg",
-      "/public/images/products/INTEGRAL4.jpg",
-      "/public/images/products/INTEGRAL5.jpg",
+      "/images/products/INTEGRAL1.jpg",
+      "/images/products/INTEGRAL2.jpg",
+      "/images/products/INTEGRAL3.jpg",
+      "/images/products/INTEGRAL4.jpg",
+      "/images/products/INTEGRAL5.jpg",
     ],
     category: "Integral",
     isEco: true,
@@ -99,11 +123,11 @@ export const products: Product[] = [
       "Nuestro pan de espelta está elaborado exclusivamente con harina de espelta. Incluso la masa madre que contiene está elaborada a base de harina (integral) de espelta. En comparación al trigo común, la espelta genera menos intolerancias (por ser un trigo ancestral), se digiere más fácilmente (por tener un gluten débil) y es más nutritivo (ya que aporta lisina, que es un aminoácido esencial no presente en el trigo común). Por todo lo anterior, la espelta es la opción preferida de aquellos que buscan una alternativa al trigo común. Algunas personas (NO celíacas) a las que no les sienta bien el trigo común, encuentran en el espelta su nuevo pan favorito.",
     price: 6.25,
     images: [
-      "/public/images/products/ESPELTA1.jpg",
-      "/public/images/products/ESPELTA2.jpg",
-      "/public/images/products/ESPELTA3.jpg",
-      "/public/images/products/ESPELTA4.jpg",
-      "/public/images/products/ESPELTA5.jpg",
+      "/images/products/ESPELTA1.jpg",
+      "/images/products/ESPELTA2.jpg",
+      "/images/products/ESPELTA3.jpg",
+      "/images/products/ESPELTA4.jpg",
+      "/images/products/ESPELTA5.jpg",
     ],
     category: "Integral",
     isEco: true,
@@ -127,11 +151,11 @@ export const products: Product[] = [
       "Este es un pan 100% centeno y 100% integral, elaborado únicamente con tres ingredientes: harina, agua y sal. A los beneficios de la harina integral, súmale los específicos del centeno: rico en minerales antioxidantes (como selenio y zinc) y ácido fólico. Es un pan de aspecto rústico, con una miga húmeda y tupida. Sabor profundo y saciante. Junto con la espelta, es la opción preferida de las personas que buscan una alternativa al trigo, ya sea por su característico sabor (más contundente) o bien por tener un gluten más débil.",
     price: 5.95,
     images: [
-      "/public/images/products/centeno1.jpg",
-      "/public/images/products/centeno2.jpg",
-      "/public/images/products/centeno3.jpg",
-      "/public/images/products/centeno4.jpg",
-      "/public/images/products/centeno5.jpg",
+      "/images/products/centeno1.jpg",
+      "/images/products/centeno2.jpg",
+      "/images/products/centeno3.jpg",
+      "/images/products/centeno4.jpg",
+      "/images/products/centeno5.jpg",
     ],
     category: "Integral",
     isEco: true,
@@ -155,11 +179,11 @@ export const products: Product[] = [
       "Mezcla al 50% de centeno integral y trigo blanco, ambas harinas de cultivo ecológico. Elaborado únicamente con harina, agua y sal. Este pan te aporta los beneficios de la harina integral, del trigo y del centeno, todo en uno. Pan muy equilibrado en cuanto a sabor, aroma y textura de su miga. Después del Payés, es nuestro pan 'sin cosas' más vendido. Pensamos que es una excelente opción para aquellos que quieren una alternativa al trigo blanco pero no les convence el peculiar sabor del centeno 100% ni tampoco la textura de un pan 100% integral",
     price: 5.85,
     images: [
-      "/public/images/products/50-501.jpg",
-      "/public/images/products/50-502.jpg",
-      "/public/images/products/50-503.jpg",
-      "/public/images/products/50-504.jpg",
-      "/public/images/products/50-505.jpg",
+      "/images/products/50-501.jpg",
+      "/images/products/50-502.jpg",
+      "/images/products/50-503.jpg",
+      "/images/products/50-504.jpg",
+      "images/products/50-505.jpg",
     ],
     category: "Integral",
     sliceOptions: ["Entero", "Rebanado"],
@@ -183,11 +207,11 @@ export const products: Product[] = [
       "Este pan está elaborado con una mezcla propia de harinas de trigo, entre las que destaca la harina tradicional zamorana (70% del total). Para potenciar el sabor, añadimos un poco de harina de centeno integral (5%). Las semillas también potencian el sabor y aportan vitaminas, minerales y abundante fibra. Es un pan de miga esponjosa y potente sabor a cereal. Es el más vendido de entre todos los panes 'Con Cosas' Que elaboramos (pasas y nueces, kalamata, sésamos, etc…). Nuestros clientes lo usan para todo: la tostada del desayuno, para mojar en aceite, para comer solo, para la tosta de la cena…",
     price: 6.45,
     images: [
-      "/public/images/products/semillas1.jpg",
-      "/public/images/products/semillas2.jpg",
-      "/public/images/products/semillas3.jpg",
-      "/public/images/products/semillas4.jpg",
-      "/public/images/products/semillas5.jpg",
+      "/images/products/semillas1.jpg",
+      "/images/products/semillas2.jpg",
+      "/images/products/semillas3.jpg",
+      "/images/products/semillas4.jpg",
+      "/images/products/semillas5.jpg",
     ],
     category: "Integral",
     sliceOptions: ["Entero", "Rebanado"],
@@ -211,11 +235,11 @@ export const products: Product[] = [
       "La aceituna Kalamata procede de Grecia y tiene un sabor muy especial. Siempre tratamos de usar producto local, pero esta es una de las pocas excepciones que hacemos porque verdaderamente tiene un sabor inigualable. Para rematar, a este pan le añadimos orégano y aceite de oliva virgen extra, de Jaén, claro ;-) Si organizas una comida o una cena, con este pan sorprendes y triunfas seguro! Puedes comerlo solo o con aceite de oliva. Casa muy bien con embutido y es perfecto como base para las tostas que quieras hacerte en casa. Es uno de los panes más sabrosos que elaboramos!",
     price: 5.3,
     images: [
-      "/public/images/products/PANDEKALAMATA.jpg",
-      "/public/images/products/PANDEKALAMATA2.jpg",
-      "/public/images/products/PANDEKALAMATA3.jpg",
-      "/public/images/products/PANDEKALAMATA4.jpg",
-      "/public/images/products/PANDEKALAMATA5.jpg",
+      "/images/products/PANDEKALAMATA.jpg",
+      "/images/products/PANDEKALAMATA2.jpg",
+      "/images/products/PANDEKALAMATA3.jpg",
+      "/images/products/PANDEKALAMATA4.jpg",
+      "/images/products/PANDEKALAMATA5.jpg",
     ],
     category: "Integral",
     sliceOptions: ["Entero", "Rebanado"],
@@ -229,7 +253,7 @@ export const products: Product[] = [
       "Uno de nuestros panes te podrá durar hasta 5 días en buenas condiciones, siempre y cuando lo conserves adecuadamente. Ten en cuenta que los panes pequeños (por ejemplo las barras u hogazas pequeñas) y los que pides rebanados durarán menos que un pan grande sin rebanar. Sigue estos consejos para que tu pan te dure lo máximo posible. Sin congelar: deja tu pan dentro de la bolsa de papel. Ahora ponlo dentro de una bolsa de tela o envuélvelo con uno o dos paños de cocina. También puedes hacerte con una cesta de lino, de esas forradas con tela por dentro. Si pones varios panes dentro (con su bolsa de papel), ahora sólo tendrás que tapar la cesta por arriba con un paño grande. Congelar: deja tu pan dentro de la bolsa de papel. Ahora ponlo dentro de una bolsa de plástico y ya puedes congelarlo. Saca las rebanadas a medida que las necesites y deja que se descongelen a temperatura ambiente. Si quieres hacer tostadas, puedes poner la rebanada congelada directamente al tostador.",
     recommendations:
       "Si eres queser@, te sugerimos una tosta contundente como pocas: queso azul, membrillo y rúcula. Para aligerarla un poco, funde el queso con un chorrito de vino dulce PX y nata líquida hasta que tengas la textura cremosa deseada. Deja que se enfríe y mézclalo con el membrillo cortado a daditos. Acaba con unas gotas de salsa Worcestershire y un par de nueces tostadas. Y que no se te olvide la rúcula fresca!",
-    related: [1, 4],
+    related: [1, 7],
   },
   {
     id: 8,
@@ -239,11 +263,11 @@ export const products: Product[] = [
       "Un clásico que necesita poca presentación. Si esta combinación ha perdurado tanto tiempo, por algo será! Este es uno de nuestros top ventas dentro de la categoría de pan 'con cosas'. Es un pan de corteza fina y miga esponjosa. Las nueces tienen un alto contenido en ácidos grasos Omega 3 de origen vegetal (que reducen el colesterol) y las pasas son ricas en fibra, por lo que facilitan el tránsito intestinal. Este pan, además de estar muy bueno, es doblemente sano!",
     price: 5.3,
     images: [
-      "/public/images/products/PASASNUECES.jpg",
-      "/public/images/products/PASASNUECES2.jpg",
-      "/public/images/products/PASASNUECES3.jpg",
-      "/public/images/products/PASASNUECES4.jpg",
-      "/public/images/products/PASASNUECES5.jpg",
+      "/images/products/PASASNUECES.jpg",
+      "/images/products/PASASNUECES2.jpg",
+      "/images/products/PASASNUECES3.jpg",
+      "/images/products/PASASNUECES4.jpg",
+      "/images/products/PASASNUECES5.jpg",
     ],
     category: "Integral",
     sliceOptions: ["Entero", "Rebanado"],
@@ -267,11 +291,11 @@ export const products: Product[] = [
       "Este pan, a base de tomate deshidratado y orégano fresco, te transportará al Mediterráneo inmediatamente. Con una mezcla propia de harinas de trigo (blanco, integral y molido a la piedra), este pan está muy hidratado, por lo que tiene una textura suave que potencia los aromas de todos su ingredientes",
     price: 4.95,
     images: [
-      "/public/images/products/PANTOMATE.jpg",
-      "/public/images/products/PANTOMATE2.jpg",
-      "/public/images/products/PANTOMATE3.jpg",
-      "/public/images/products/PANTOMATE4.jpg",
-      "/public/images/products/PANTOMATE5.jpg",
+      "/images/products/PANTOMATE.jpg",
+      "/images/products/PANTOMATE2.jpg",
+      "/images/products/PANTOMATE3.jpg",
+      "/images/products/PANTOMATE4.jpg",
+      "/images/products/PANTOMATE5.jpg",
     ],
     category: "Integral",
     sliceOptions: ["Entero", "Rebanado"],
@@ -345,18 +369,17 @@ export const products: Product[] = [
     related: [2, 7],
   },
   {
-    id: 11,
+    id: 35,
     slug: "molde-de-semillas",
     name: "Molde de Semillas",
     description:
       "Pan de molde cargadito de semillas, tanto en su interior, como por toda la corteza. Elaborado con harina tradicional zamorana (en un 70%), le añadimos leche y aceite de oliva virgen extra, por lo que su corteza es fina y su miga abizcochada. Otros de los panes que vuelan en las tiendas!",
     price: 4.85,
     images: [
-      "/public/images/products/moldesemillas.jpg",
-      "/public/images/products/moldesemillas2.jpg",
-      "/public/images/products/moldesemillas3.jpg",
-      "/public/images/products/moldesemillas4.jpg",
-      "/public/images/products/moldesemillas5.jpg",
+      "/images/products/moldesemillas.jpg",
+      "/images/products/moldesemillas2.jpg",
+      "/images/products/moldesemillas3.jpg",
+      "/images/products/moldesemillas4.jpg",
     ],
     category: "Molde",
     sliceOptions: ["Entero", "Rebanado"],
@@ -370,7 +393,7 @@ export const products: Product[] = [
       "El pan de Molde puede durar más de 5 días en buenas condiciones (sin rebanar te durará siempre más que si te lo llevas rebanado de la tienda). El pan de Viena tiene mantequilla, por lo que tendrás que tenerlo siempre en bolsa de plástico; tanto si lo congelas como si no. Sin congelar: conserva el pan dentro de una bolsa de plástico y mantenla bien cerrada, en un lugar seco y fresco. Si el calor aprieta, puedes tenerlo en la nevera. Congelar: Para congelarlo, ponlo en una bolsa de plástico. Saca las rebanadas a medida que las necesites y deja que se descongelen a temperatura ambiente. Si quieres hacer tostadas, puedes poner la rebanada congelada directamente al tostador.",
     recommendations:
       "Otra magnífica opción para las tostadas del desayuno. También puedes preparar todo tipo de sándwiches con él. Nosotros nos hemos animado con uno frío de rúcula, mortadela trufada y virutas de parmesano que estaba delicioso!",
-    related: [2, 7],
+    related: [1, 7],
   },
   {
     id: 12,
@@ -380,10 +403,10 @@ export const products: Product[] = [
       "Advertimos que estas rosquillas generan adicción. Lo de las rosquillas en nuestras tiendas es una locura. La mayoría de los días, a media mañana, ya se nos han acabado. Tardamos dos días en hacerlas y están formadas a mano, una a una. Ese es el motivo por el que no hay dos iguales. Son super-esponjosas, tiernas y con un aroma maravilloso a mantequilla tostada y anís. Algunos dicen que les recuerdan a los donuts, pero muuucho más delicadas y sin los 25 aditivos que tienen estos...",
     price: 2.5,
     images: [
-      "/public/images/products/rosquillasani.jpg",
-      "/public/images/products/rosquillasani2.jpg",
-      "/public/images/products/rosquillasani3.jpg",
-      "/public/images/products/rosquillasani4.jpg",
+      "/images/products/rosquillasani.jpg",
+      "/images/products/rosquillasani2.jpg",
+      "/images/products/rosquillasani3.jpg",
+      "/images/products/rosquillasani4.jpg",
     ],
     category: "Bolleria",
     packageOptions: [
@@ -413,8 +436,8 @@ export const products: Product[] = [
       "Nuestro pan de hamburguesa está elaborado con mantequilla 100% y huevos camperos. Formamos cada pieza a mano y, antes de hornear, las pintamos con huevo batido y decoramos con semillas de sésamo y amapola. Una unidad de este producto es una bolsa con 4 panecillos. Cada panecillo pesa aproximadamente unos 70g y mide unos 10-11cm de diámetro.",
     price: 4.85,
     images: [
-      "/public/images/products/panhamburguesa.jpg",
-      "/public/images/products/panhamburguesa2.jpg",
+      "/images/products/panhamburguesa.jpg",
+      "/images/products/panhamburguesa2.jpg",
     ],
     category: "Pan de Hamburguesa",
     sliceOptions: ["Entero", "Rebanado"],
@@ -437,13 +460,13 @@ export const products: Product[] = [
     name: "Croissant de Mantequilla",
     description:
       "Elaborado, de principio a fin, en nuestro obrador en el centro de Madrid. Nuestros croissants están formados a mano, uno a uno. Están hechos a base de mantequilla belga y con la menor cantidad de azúcar posible (sólo un 5%). Tiene un intenso sabor a mantequilla tostada y una textura suave y crujiente...Vaya, que no es un 'bollo esponjoso' como los que abundan por ahí. Nada que ver con los engendros del supermercado, ni mucho menos con los 'marianicos', que se fabrican a razón de 23mil unidades por hora...",
-    price: 2.05,
+    price: 2.5,
     images: [
-      "/public/images/products/croissant.jpg",
-      "/public/images/products/croissant2.jpg",
-      "/public/images/products/croissant3.jpg",
-      "/public/images/products/croissant4.jpg",
-      "/public/images/products/croissant5.jpg",
+      "/images/products/croissant.jpg",
+      "/images/products/croissant2.jpg",
+      "/images/products/croissant3.jpg",
+      "/images/products/croissant4.jpg",
+      "/images/products/croissant5.jpg",
     ],
     category: "Bolleria",
     sliceOptions: ["Entero"],
@@ -467,9 +490,9 @@ export const products: Product[] = [
       "Sencillo: nuestro croissant de mantequilla relleno con un mazapán elaborado por nosotros y decorado con almendra laminada y un poco de azúcar glas. Está muy bueno. Poco más podemos añadir.",
     price: 3.15,
     images: [
-      "/public/images/products/croissantmazapan.jpg",
-      "/public/images/products/croissantmazapan2.jpg",
-      "/public/images/products/croissantmazapan3.jpg",
+      "/images/products/croissantmazapan.jpg",
+      "/images/products/croissantmazapan2.jpg",
+      "/images/products/croissantmazapan3.jpg",
     ],
     category: "Bolleria",
     sliceOptions: ["Entero"],
@@ -493,10 +516,10 @@ export const products: Product[] = [
       "Magdalenas elaboradas sólo con harina de espelta procedente de cultivo ecológico. En comparación al trigo común, la espelta genera menos intolerancias (por ser un cereal ancestral), se digiere más fácilmente (por tener un gluten débil) y es más nutritivo (ya que aporta lisina, que es un aminoácido esencial no presente en el trigo común). Qué más se puede pedir a este cereal? Además, las magdalenas están muy ricas!",
     price: 4.95,
     images: [
-      "/public/images/products/MAGDALENAS1.jpg",
-      "/public/images/products/MAGDALENAS2.jpg",
-      "/public/images/products/MAGDALENAS3.jpg",
-      "/public/images/products/MAGDALENAS4.jpg",
+      "/images/products/MAGDALENAS1.jpg",
+      "/images/products/MAGDALENAS2.jpg",
+      "/images/products/MAGDALENAS3.jpg",
+      "/images/products/MAGDALENAS4.jpg",
     ],
     category: "Bolleria",
     packageOptions: [{ label: "Paquete 6 Unidades", price: 4.95 }],
@@ -521,12 +544,17 @@ export const products: Product[] = [
       "Nos encantan los clásicos de la bollería y la palmera de mantequilla es una de nuestras señas de identidad. Elaborada artesanalmente con ingredientes ecológicos con harina, mantequilla belga, sal, agua y azúcar. Sin conservantes. Hacemos el hojaldre desde cero y cortamos cada palmera a cuchillo, una a una. Nos gustan con un grosos 'clásico': ni muy grueso, ni ultrafino ;-)",
     price: 2.25,
     images: [
-      "/public/images/products/palmeramantequilla.jpg",
-      "/public/images/products/palmeramantequilla2.jpg",
-      "/public/images/products/palmeramantequilla3.jpg",
-      "/public/images/products/palmeramantequilla4.jpg",
+      "/images/products/palmeramantequilla.jpg",
+      "/images/products/palmeramantequilla2.jpg",
+      "/images/products/palmeramantequilla3.jpg",
+      "/images/products/palmeramantequilla4.jpg",
     ],
     category: "Bolleria",
+    packageOptions: [
+      { label: "Unidad", price: 2.65 },
+      { label: "Pack 3 uds", price: 7.5 },
+      { label: "Pack 6 uds", price: 14.0 },
+    ],
     sliceOptions: ["Entero"],
     isEco: true,
     nutritionalInfo:
@@ -538,7 +566,7 @@ export const products: Product[] = [
       "Sin congelar, podrás conservar la palmera -como máximo- hasta el desayuno de mañana. Si quieres que aguante más, tendrás que congelarla. Para conservarla sin congelar, deja tu palmera en la bolsa de papel y envuélvela completamente con paño de cocina. Antes de desayunar, precalienta el horno a 150 grados y hornéala un par de minutos. También puedes ponerlo encima de la rejilla del tostador (dejando un espacio) durante medio minuto por cada lado, lo suficiente para que se caliente el interior ligeramente. Puedes congelar las palmeras para otro día. Para descongelarlas, precalienta el horno a 200º e introduce las palmeras (directamente del congelador). Hornea durante 3 minutos y retíralas del horno. Deja que se enfríen durante unos 10 minutos, hasta temperatura ambiente.",
     recommendations:
       "Como ya sabes que puedes rellenar la palmera con lo que se te ocurra, te vamos a sugerir una manera distinta de comértela, especialmente recomendada para niños pequeños. Si cortas la palmera a lo largo, no a lo ancho, te saldrán 3 rebanadas de un dedo de grosor. Estas tienen la forma y textura perfecta para mojar en un buen chocolate a la taza, leche, etc.... Si lo haces con una palmera caliente, el chocolate se fundirá y quedará delicioso. Puedes hacer lo mismo con una palmera fría, pero tendrás que calentar el chocolate antes de mojarlo.",
-    related: [2, 14],
+    related: [2, 18],
   },
   {
     id: 18,
@@ -548,10 +576,15 @@ export const products: Product[] = [
       "Palmera de chocolate = palmera 'normal' + baño de chocolate :-) No tendríamos nada más que añadir si no fuese porque el chocolate con el que las bañamos es Valrhona. No te decimos más nada…",
     price: 2.95,
     images: [
-      "/public/images/products/palmerachocolate.jpg",
-      "/public/images/products/palmerachocolate1.jpg",
+      "/images/products/palmerachocolate.jpg",
+      "/images/products/palmerachocolate1.jpg",
     ],
     category: "Bolleria",
+    packageOptions: [
+      { label: "Unidad", price: 2.85 },
+      { label: "Pack 3 uds", price: 8 },
+      { label: "Pack 6 uds", price: 12.0 },
+    ],
     sliceOptions: ["Entero"],
     isEco: true,
     nutritionalInfo:
@@ -609,11 +642,16 @@ export const products: Product[] = [
       "Donut de chocolate = Donut 'normal' + baño de chocolate :-) No tendríamos nada más que añadir si no fuese porque el chocolate con el que los bañamos es Valrhona. No te decimos más nada…",
     price: 3.35,
     images: [
-      "/public/images/products/DONUTCHOCOLATE.jpg",
-      "/public/images/products/DONUTCHOCOLATE2.jpg",
-      "/public/images/products/DONUTCHOCOLATE3.jpg",
+      "/images/products/DONUTCHOCOLATE.jpg",
+      "/images/products/DONUTCHOCOLATE2.jpg",
     ],
     category: "Bolleria",
+
+    packageOptions: [
+      { label: "Unidad", price: 2.85 },
+      { label: "Pack 3 uds", price: 8 },
+      { label: "Pack 6 uds", price: 16.0 },
+    ],
     sliceOptions: ["Entero"],
     isEco: true,
     nutritionalInfo:
@@ -679,10 +717,144 @@ export const products: Product[] = [
     recommendations:
       "Mejora si lo combinas con frutos rojos y del bosque (arándanos, fresas, moras, frambuesas…) y le añades unas hojitas de menta.",
     related: [17, 19],
+  },
+  {
+    id: 23,
+    slug: "magdalena-espelta",
+    name: "Magdalena de Espelta",
+    description:
+      "Una magdalena suave, esponjosa y con el sabor delicado de la espelta ecológica. Elaborada sin prisas, perfecta para desayunar sin remordimientos. Un clásico que nunca falla.",
+    price: 2.1,
+    images: ["/images/products/magdalenas-espelta.webp"],
+    category: "Bolleria",
+    sliceOptions: ["Unidad"],
+    isEco: true,
+    nutritionalInfo:
+      "Fuente de fibra y minerales como el magnesio y fósforo. La espelta facilita una digestión ligera.",
+    ingredients:
+      "Harina de espelta ecológica, huevo, azúcar de caña, aceite de oliva virgen extra, leche, levadura, ralladura de limón.",
+    allergens: ["Gluten", "Huevo", "Lactosa"],
+    conservation:
+      "Conservar en lugar fresco y seco, dentro de su envoltorio original o en un recipiente hermético. Aguanta esponjosa hasta 2 días. También se puede congelar.",
+    recommendations:
+      "Sabe aún mejor si la calientas 10 segundos al microondas. Ideal con un café recién hecho.",
+    related: [21],
     packageOptions: [
-      { label: "Unidad", price: 3.35 },
-      { label: "Pack 3 uds", price: 9.5 },
-      { label: "Pack 6 uds", price: 18.0 },
+      { label: "Unidad", price: 2.1 },
+      { label: "Pack 4 uds", price: 7.8 },
+    ],
+  },
+
+  {
+    id: 24,
+    slug: "magdalena-chocolate",
+    name: "Magdalena con Pepitas de Chocolate",
+    description:
+      "Esponjosa, jugosa y con el toque travieso de las pepitas de chocolate. Una magdalena que alegra cualquier día con solo abrir su envoltorio.",
+    price: 2.45,
+    images: ["/images/products/magdalenas-con-chocolate.webp"],
+    category: "Bolleria",
+    sliceOptions: ["Unidad"],
+    isEco: true,
+    nutritionalInfo:
+      "Fuente de energía y felicidad. Contiene antioxidantes naturales gracias al chocolate negro ecológico.",
+    ingredients:
+      "Harina de trigo ecológica, azúcar de caña, huevo, leche, pepitas de chocolate, aceite de oliva virgen extra, levadura.",
+    allergens: ["Gluten", "Huevo", "Lactosa"],
+    conservation:
+      "Guárdala en un bote hermético o su envoltorio. Se mantiene tierna hasta 2 días. Congelable sin perder textura.",
+    recommendations:
+      "Saca una sonrisa mojándola en leche o café. Si la calientas unos segundos, el chocolate se derrite. Y tú también.",
+    related: [23, 25],
+    packageOptions: [
+      { label: "Unidad", price: 2.45 },
+      { label: "Pack 3 uds", price: 6.9 },
+    ],
+  },
+
+  {
+    id: 25,
+    slug: "galleta-chocolate",
+    name: "Galleta de Chocolate",
+    description:
+      "Una galleta de las que desaparecen sin darte cuenta. Con trozos de chocolate ecológico y una textura perfecta: crujiente por fuera y tierna por dentro.",
+    price: 3.1,
+    images: ["/images/products/galleta-chocolate.webp"],
+    category: "Bolleria",
+    sliceOptions: ["Entero"],
+    isEco: true,
+    nutritionalInfo:
+      "Rica en antioxidantes y carbohidratos complejos. Ideal para darte un capricho consciente.",
+    ingredients:
+      "Harina de trigo ecológica, azúcar de caña, mantequilla, huevo, trozos de chocolate negro, levadura, sal marina.",
+    allergens: ["Gluten", "Lactosa", "Huevo"],
+    conservation:
+      "Conservar en lugar fresco y seco. Idealmente en un tarro cerrado. Se mantiene crujiente hasta 4 días. También puedes congelarla.",
+    recommendations:
+      "Sírvela con un vaso de leche fría o un té especiado. Si te atreves, ponle helado encima.",
+    related: [21, 24],
+    packageOptions: [
+      { label: "Unidad", price: 3.1 },
+      { label: "Pack 3 uds", price: 8.9 },
+      { label: "Pack 6 uds", price: 17.0 },
+    ],
+  },
+
+  {
+    id: 26,
+    slug: "bizcocho-cacao",
+    name: "Bizcocho de Cacao",
+    description:
+      "Nuestro bizcocho de cacao es denso, húmedo y honesto. Sabe a cacao de verdad y está hecho para los que aman lo clásico sin aditivos. Una rebanada te hace feliz, dos te reconcilian con la semana.",
+    price: 3.8,
+    images: ["/images/products/bizcocho-cacao.webp"],
+    category: "Bolleria",
+    sliceOptions: ["Rebanada"],
+    isEco: true,
+    nutritionalInfo:
+      "Alto en antioxidantes naturales del cacao puro. Energía lenta gracias a los cereales integrales.",
+    ingredients:
+      "Harina integral ecológica, cacao puro, azúcar de caña, huevo, aceite de girasol alto oleico, yogur natural, levadura, esencia de vainilla.",
+    allergens: ["Gluten", "Huevo", "Lactosa"],
+    conservation:
+      "Guarda el bizcocho en un recipiente cerrado a temperatura ambiente. Se mantiene jugoso 2-3 días. Puedes congelarlo en porciones envueltas individualmente.",
+    recommendations:
+      "Ideal como desayuno o merienda. Va genial con leche vegetal o un espresso corto. Si eres goloso, prueba a añadirle un toque de mermelada.",
+    related: [25, 24],
+    packageOptions: [
+      { label: "Rebanada", price: 3.8 },
+      { label: "Tarta entera (6-8 porciones)", price: 21.0 },
+    ],
+  },
+  {
+    id: 27,
+    slug: "hojaldre-pistacho",
+    name: "Hojaldre de Pistacho",
+    description:
+      "Lo confesamos: esta receta la hicimos para no tirar los recortes que deja la masa del croissant una vez la cortamos a cuchillo. Así que se nos ocurrió hacer una pasta casera a base de pistacho natural y aceite de oliva. Pensamos que combinaría bien con nuestra crema pastelera (que, como no puede ser de otro modo, hacemos nosotros, desde cero) y con frambuesas naturales. Pues resulta que del invento de los recortes ha salido lo que posiblemente sea una de las mejores elaboraciones de hojaldre que hacemos a día de hoy...que cosas tiene la pastelería oiga...",
+    price: 3.6,
+    images: [
+      "/images/products/hojaldre-pistacho.jpg",
+      "/images/products/hojaldre-pistacho2.jpg",
+      "/images/products/hojaldre-pistacho3.jpg",
+      "/images/products/hojaldre-pistacho4.jpg",
+    ],
+    category: "Bolleria",
+    sliceOptions: ["Unidad"],
+    isEco: true,
+    nutritionalInfo:
+      "Rico en grasas saludables, fibra y antioxidantes naturales del pistacho. Aporta energía sostenida y un sabor inolvidable.",
+    ingredients:
+      "Harina de trigo ecológica, mantequilla, azúcar de caña, Crema pastelera (leche, nata, azúcar, almidón de maíz, yema de huevo, sal y vainilla), pistachos tostados, crema vegetal de pistacho, sal marina.",
+    allergens: ["Gluten", "Lactosa", "Frutos de cáscara"],
+    conservation:
+      "Puedes conservar la bollería para otra ocasión. Si es para el desayuno día siguiente, déjala en el sobre de papel o caja de cartón en la que venía y envuelve todo ello con uno o dos paños de cocina. Antes de desayunar, hornea las piezas a 150 grados durante un par de minutos. También puedes congelarla (en bolsa de plástico). Para descongelarla, precalienta el horno a 200º e introduce las piezas de bollería (directamente del congelador). Hornea durante 2-3 minutos y retira del horno. Deja que se enfríe durante unos 10 minutos, hasta temperatura ambiente.",
+    recommendations:
+      "Si tienes una cena en casa y no te quieres complicar con el postre, añade a cada hojaldre una bola de helado y tira millas. Dejarás el listón esfuerzo/placer muy alto y a ver quien es el cocinillas que te supera en la siguiente ocasión. Además, di que lo has hecho tú. Es más, di que has hecho croissants y que con los recortes se te ha ocurrido improvisar esta tartaleta que has sacado; que tenías ahí en el armario unos pocos pistacho y unas frambuesas y, mira tú por donde, ha combinado todo genial y ha salido un postre de lujo. No te olvides de ponerle un poco de azúcar glas por encima y a disfrutar.",
+    related: [21, 26],
+    packageOptions: [
+      { label: "Unidad", price: 3.6 },
+      { label: "Pack 2 uds", price: 6.9 },
     ],
   },
 ];

@@ -1,10 +1,5 @@
 import React, { useState } from "react";
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-  DialogClose,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import {
   Select,
@@ -17,7 +12,6 @@ import { Product } from "@/lib/data";
 import {
   LeafyGreen,
   WheatOff,
-  Sparkles,
   ShieldCheck,
   Apple,
   Hand,
@@ -125,32 +119,32 @@ const QuickViewModal: React.FC<QuickViewModalProps> = ({
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-[600px] bg-white/95 backdrop-blur-md p-0 rounded-lg overflow-hidden border-0 shadow-xl">
-        <div className="p-6 text-center">
-          {/* Header */}
-          <div className="flex justify-between items-start">
+      <DialogContent className="w-full max-w-lg sm:rounded-lg bg-white/95 backdrop-blur-md px-4 py-5 sm:p-6 overflow-y-auto max-h-[90vh] border-0 shadow-xl">
+        <div className="text-center relative pb-6">
+          {/* Header personalizado */}
+          <div className="flex justify-between items-start mb-4">
             <div className="flex-1" />
-            <DialogTitle className="font-sans text-xl uppercase font-medium text-center flex-grow">
+            <DialogTitle className="font-sans text-lg sm:text-xl uppercase font-medium text-center flex-grow">
               {product.name}
             </DialogTitle>
             <div className="flex-1 flex justify-end">
-              <DialogClose className="h-6 w-6 hover:bg-gray-100 rounded-full p-1">
-                <X className="h-full w-full" />
-              </DialogClose>
+              <button
+                onClick={onClose}
+                aria-label="Cerrar"
+                className="h-6 w-6 hover:bg-gray-100 rounded-full p-1"
+              ></button>
             </div>
           </div>
 
-          <p className="text-gray-500 italic mt-1 mb-6">Made in Prim</p>
-
           {/* Galería */}
           {product.images && (
-            <div className="max-w-[400px] mx-auto mb-6">
+            <div className="w-full max-w-sm mx-auto mb-6">
               <ImageCarousel images={product.images} />
             </div>
           )}
 
           {/* Selectores */}
-          <div className="grid grid-cols-2 gap-4 max-w-[500px] mx-auto mb-6">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 max-w-md mx-auto mb-6">
             <Select
               value={quantity.toString()}
               onValueChange={(val) => setQuantity(Number(val))}
@@ -187,14 +181,6 @@ const QuickViewModal: React.FC<QuickViewModalProps> = ({
             </Select>
           </div>
 
-          {/* Botón */}
-          <Button
-            onClick={handleAddToCart}
-            className="w-full max-w-[500px] bg-[#807c5c] hover:bg-[#6a6749] border-none text-white py-6 mb-8"
-          >
-            {selectedPrice.toFixed(2)}€/ud - Añadir a la cesta
-          </Button>
-
           {/* Descripción */}
           {product.description && (
             <p className="text-sm text-gray-600 mt-2 max-w-[90%] mx-auto mb-4">
@@ -204,13 +190,22 @@ const QuickViewModal: React.FC<QuickViewModalProps> = ({
 
           {renderBadges()}
 
-          {/* Enlace a ficha completa */}
-          <Link
-            to={`/productos/${product.slug}`}
-            className="block text-sm text-[#807c5c] hover:underline mt-3"
-          >
-            Ver ficha completa del producto →
-          </Link>
+          {/* Enlace y botón */}
+          <div className="max-w-md mx-auto">
+            <Link
+              to={`/productos/${product.slug}`}
+              className="block text-sm text-[#807c5c] hover:underline mt-3 mb-3"
+            >
+              Ver ficha completa del producto →
+            </Link>
+
+            <Button
+              onClick={handleAddToCart}
+              className="w-full bg-[#807c5c] hover:bg-[#6a6749] border-none text-white py-4"
+            >
+              {selectedPrice.toFixed(2)}€/ud - Añadir a la cesta
+            </Button>
+          </div>
         </div>
       </DialogContent>
     </Dialog>

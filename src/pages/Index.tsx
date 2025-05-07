@@ -1,9 +1,9 @@
-
-import React from "react";
+import React, { useRef } from "react";
 import { useProductFilter } from "@/hooks/userProductFilter";
 import FilterBar from "@/components/IndexPage/FilterBar";
 import ProductGridView from "@/components/IndexPage/ProductGridView";
 import ProductListView from "@/components/IndexPage/ProductListView";
+import HeroVideoSection from "@/components/IndexPage/HeroVideoSection";
 
 const Index: React.FC = () => {
   const {
@@ -19,21 +19,22 @@ const Index: React.FC = () => {
     filteredCount,
   } = useProductFilter();
 
+  const tiendaRef = useRef<HTMLDivElement | null>(null);
+
+  const scrollToTienda = () => {
+    tiendaRef.current?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
     <div className="bg-bread-background">
-      <div className="px-6 md:px-10 max-w-7xl mx-auto pb-20">
-        <div className="py-8 md:py-16 text-center">
-          <h1 className="font-serif text-3xl md:text-5xl font-medium mb-4">
-            Nuestro Pan Artesanal
-          </h1>
-          <p className="max-w-2xl mx-auto text-bread-dark/80 mb-8">
-            Elaborado con ingredientes orgánicos, masa madre natural y más de 16
-            horas de fermentación. Descubre el auténtico sabor del pan como se
-            hacía antiguamente.
-          </p>
-        </div>
+      <HeroVideoSection onScrollClick={scrollToTienda} />
 
-        <FilterBar 
+      {/* ⬇ Sección tienda */}
+      <div
+        ref={tiendaRef}
+        className="px-6 md:px-10 max-w-7xl mx-auto pt-20 pb-20"
+      >
+        <FilterBar
           selectedCategory={selectedCategory}
           setSelectedCategory={setSelectedCategory}
           sortBy={sortBy}

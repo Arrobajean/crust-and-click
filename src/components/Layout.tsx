@@ -3,8 +3,8 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-import CartButton from "@/components/CartButton";
-import CartToast from "@/components/CartToast";
+import CartButton from "@/components/Cart/CartButton";
+import CartToast from "@/components/Cart/CartToast";
 import CookieBanner from "@/components/CookieBanner";
 import { useAddToCartWithToast } from "@/hooks/useAddToCartWithToast";
 

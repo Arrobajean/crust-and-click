@@ -1,4 +1,3 @@
-
 import { Toaster } from "@/components/ui/toaster";
 import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
@@ -17,6 +16,7 @@ import PoliticaPrivacidad from "./pages/PoliticaPrivacidad";
 import PoliticaCookies from "./pages/PoliticaCookies";
 import TerminosCondiciones from "./pages/TerminosCondiciones";
 import Checkout from "./pages/Checkout";
+import { ParallaxProvider } from "react-scroll-parallax"; // 👈 Importante
 
 const queryClient = new QueryClient();
 
@@ -26,24 +26,34 @@ const App = () => (
       <CartProvider>
         <Toaster />
         <Sonner />
-        <BrowserRouter>
-          <Routes>
-            <Route element={<Layout />}>
-              <Route path="/" element={<Index />} />
-              <Route path="/nuestra-filosofia" element={<Philosophy />} />
-              <Route path="/faq" element={<Faq />} />
-              <Route path="/como-trabajamos" element={<HowWeWork />} />
-              <Route path="/checkout" element={<Checkout />} />
-              {/* Legal Pages */}
-              <Route path="/aviso-legal" element={<AvisoLegal />} />
-              <Route path="/politica-privacidad" element={<PoliticaPrivacidad />} />
-              <Route path="/politica-cookies" element={<PoliticaCookies />} />
-              <Route path="/terminos-condiciones" element={<TerminosCondiciones />} />
-              <Route path="/productos/:slug" element={<ProductPage />} />
-              <Route path="*" element={<NotFound />} />
-            </Route>
-          </Routes>
-        </BrowserRouter>
+        <ParallaxProvider>
+          {" "}
+          {/* 👈 Aquí envolvemos todo lo que pueda usar parallax */}
+          <BrowserRouter>
+            <Routes>
+              <Route element={<Layout />}>
+                <Route path="/" element={<Index />} />
+                <Route path="/nuestra-filosofia" element={<Philosophy />} />
+                <Route path="/faq" element={<Faq />} />
+                <Route path="/como-trabajamos" element={<HowWeWork />} />
+                <Route path="/checkout" element={<Checkout />} />
+                {/* Legal Pages */}
+                <Route path="/aviso-legal" element={<AvisoLegal />} />
+                <Route
+                  path="/politica-privacidad"
+                  element={<PoliticaPrivacidad />}
+                />
+                <Route path="/politica-cookies" element={<PoliticaCookies />} />
+                <Route
+                  path="/terminos-condiciones"
+                  element={<TerminosCondiciones />}
+                />
+                <Route path="/productos/:slug" element={<ProductPage />} />
+                <Route path="*" element={<NotFound />} />
+              </Route>
+            </Routes>
+          </BrowserRouter>
+        </ParallaxProvider>
       </CartProvider>
     </TooltipProvider>
   </QueryClientProvider>
