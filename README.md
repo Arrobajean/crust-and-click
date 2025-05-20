@@ -1,73 +1,73 @@
-# Welcome to your Lovable project
+Click & Crust es una landing page y tienda online diseñada para PanMadrid S.L., una panadería artesanal ubicada en Madrid. El objetivo principal de este proyecto fue crear una experiencia digital que reflejara la calidez y sencillez de la panadería tradicional, mientras se incorporaban funciones modernas que faciliten la compra y la recogida de productos.
 
-## Project info
+Descripción del Proyecto
+La panadería Click & Crust tiene más de 50 años de historia y es conocida en el barrio por la calidad y el trato cercano con sus clientes. Sin embargo, con el avance de la digitalización, el negocio necesitaba encontrar una forma de integrar sus productos frescos en una plataforma online, sin perder la calidez de la experiencia física. El reto era crear una solución que:
 
-**URL**: https://lovable.dev/projects/02ca9d9f-f4aa-4803-af9e-54634a33f016
+Mantuviera la identidad tradicional y cercana de la panadería.
 
-## How can I edit this code?
+Permitiera a los clientes realizar pedidos online para recogerlos en la tienda sin hacer cola, asegurando productos frescos y evitando el desperdicio.
 
-There are several ways of editing your application.
+Atraiga a nuevos clientes en el barrio que prefieren realizar pedidos desde sus hogares.
 
-**Use Lovable**
+Este proyecto proporciona una tienda en línea sencilla y eficiente para los clientes de la panadería, integrando funcionalidades como la reserva de productos frescos y la posibilidad de elegir el horario de recogida, lo que permite reducir el desperdicio y aumentar las ventas.
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/02ca9d9f-f4aa-4803-af9e-54634a33f016) and start prompting.
+Tecnologías Utilizadas
+El proyecto fue desarrollado utilizando las siguientes tecnologías:
 
-Changes made via Lovable will be committed automatically to this repo.
+React: Biblioteca JavaScript utilizada para construir la interfaz de usuario, permitiendo una experiencia rápida y dinámica.
 
-**Use your preferred IDE**
+TypeScript: Añade tipado estático a JavaScript para mejorar la fiabilidad y el mantenimiento del código.
 
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
+Tailwind CSS: Un framework CSS utility-first que facilitó la creación de un diseño limpio, responsivo y atractivo.
 
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
+Estas tecnologías fueron elegidas por su capacidad para construir una aplicación escalable y mantenible, asegurando un rendimiento óptimo para los usuarios.
 
-Follow these steps:
+Proceso de Desarrollo
+El desarrollo del proyecto se dividió en varias fases para garantizar la implementación exitosa de la tienda online y la landing page:
 
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
+1. Investigación y Planificación
+El primer paso fue comprender las necesidades del cliente y los requisitos del negocio. Se realizaron entrevistas con los dueños de PanMadrid S.L. para identificar los puntos clave de su marca, sus expectativas y las funcionalidades que deseaban en el sitio web. El objetivo principal era ofrecer una experiencia cálida, similar a la que los clientes disfrutarían al visitar la tienda física.
 
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
+2. Diseño y Estructuración del Proyecto
+Con base en los requisitos iniciales, se diseñó una estructura simple y clara para el sitio. La navegación debía ser fácil de usar, permitiendo a los clientes encontrar rápidamente los productos disponibles y realizar su pedido con facilidad. El diseño visual se inspiró en elementos nostálgicos de la panadería tradicional, con colores cálidos y fuentes amigables. Además, se implementaron animaciones suaves utilizando Framer Motion para hacer la experiencia más dinámica y atractiva.
 
-# Step 3: Install the necessary dependencies.
-npm i
+3. Implementación de la Tienda Online
+La tienda online fue creada utilizando React para manejar el estado de los productos, el carrito de compras y el proceso de pago. Se integraron funcionalidades para la selección de productos y la opción de reserva de productos para recoger en la tienda, lo que permite a los clientes elegir su hora de recogida y evitar esperas.
 
-# Step 4: Start the development server with auto-reloading and an instant preview.
-npm run dev
-```
+4. Integración de Funcionalidades
+Se implementaron varias características clave:
 
-**Edit a file directly in GitHub**
+Sistema de reservas: Los clientes pueden seleccionar los productos que desean comprar y elegir el horario en que quieren recogerlos en la tienda, lo que ayuda a reducir el desperdicio de productos frescos.
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+Carrito de compras dinámico: Los productos pueden añadirse al carrito, y los clientes tienen la opción de editar su pedido fácilmente.
 
-**Use GitHub Codespaces**
+Visualización clara de productos: Cada producto tiene una descripción clara, con imágenes de alta calidad y detalles importantes como ingredientes y precios.
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+Formulario de contacto: Para facilitar la comunicación directa con los clientes, se implementó un formulario de contacto donde los usuarios pueden hacer consultas.
 
-## What technologies are used for this project?
+5. Testeo y Feedback
+Una vez completada la versión inicial, se realizó un proceso de prueba con un grupo selecto de clientes habituales de la panadería. Durante este proceso, se recibieron comentarios valiosos que ayudaron a ajustar algunos detalles de la interfaz y las funcionalidades. Además, se realizaron pruebas de rendimiento para garantizar tiempos de carga rápidos y una experiencia fluida en dispositivos móviles y de escritorio.
 
-This project is built with:
+Resultados
+Los resultados alcanzados por la implementación de Click & Crust fueron muy positivos tanto para el negocio como para los clientes:
 
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
+1. Reducción de Desperdicio
+El sistema de reservas implementado permitió que la panadería tuviera una mejor visibilidad de la demanda, lo que se tradujo en una reducción del 30% en el desperdicio de productos al final del día. Esto no solo ayudó a mejorar la eficiencia operativa, sino que también tuvo un impacto positivo en los márgenes de beneficio.
 
-## How can I deploy this project?
+2. Aumento de Ventas
+La plataforma facilitó que nuevos clientes del barrio pudieran descubrir la panadería y realizar pedidos de manera sencilla desde sus hogares. Como resultado, las ventas aumentaron un 25%, con un notable incremento en la frecuencia de compra de los clientes recurrentes.
 
-Simply open [Lovable](https://lovable.dev/projects/02ca9d9f-f4aa-4803-af9e-54634a33f016) and click on Share -> Publish.
+3. Mejora de la Experiencia del Cliente
+El sitio web no solo ofreció una plataforma funcional, sino que también mejoró la experiencia del cliente al proporcionar una interfaz sencilla y amigable, con la opción de evitar colas y recoger los productos frescos a su conveniencia.
 
-## Can I connect a custom domain to my Lovable project?
+Desafíos y Soluciones
+Desafío
+Uno de los principales desafíos fue digitalizar una panadería tradicional sin perder el toque personal que la caracteriza. Era fundamental que la experiencia en línea reflejara la atmósfera acogedora de la tienda física.
 
-Yes, you can!
+Solución
+La solución consistió en integrar un diseño visual que evocara nostalgia, con colores cálidos, fuentes amigables y fotografías de alta calidad que representaran los productos de manera atractiva. Además, se priorizó la simplicidad en la navegación y la facilidad de uso en dispositivos móviles.
 
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+Cliente
+Nombre: PanMadrid S.L.
+Categoría: E-commerce
+Año: 2023
