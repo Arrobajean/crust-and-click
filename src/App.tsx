@@ -15,6 +15,7 @@ import AvisoLegal from "./pages/AvisoLegal";
 import PoliticaPrivacidad from "./pages/PoliticaPrivacidad";
 import PoliticaCookies from "./pages/PoliticaCookies";
 import TerminosCondiciones from "./pages/TerminosCondiciones";
+import Contact from "./pages/Contact";
 import Checkout from "./pages/Checkout";
 import { ParallaxProvider } from "react-scroll-parallax"; // 👈 Importante
 
@@ -37,6 +38,8 @@ const App = () => (
                 <Route path="/faq" element={<Faq />} />
                 <Route path="/como-trabajamos" element={<HowWeWork />} />
                 <Route path="/checkout" element={<Checkout />} />
+                <Route path="/contacto" element={<Contact />} />
+
                 {/* Legal Pages */}
                 <Route path="/aviso-legal" element={<AvisoLegal />} />
                 <Route
